@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+  <title>19BURGER TABLE</title>
+  <meta content="" name="description" />
+  <meta content="" name="keywords" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect" />
+  <link
+          href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet"
+  />
+
+  <!-- Vendor CSS Files -->
+  <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+  <link th:href="@{/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet" />
+
+  <!-- Template Main CSS File -->
+  <link th:href="@{/css/style.css}" rel="stylesheet" />
+
+</head>
+
+<body>
+<!-- 공통 해더 -->
+<div th:replace="~{/components/header :: header}"></div>
+<!-- 공통 사이드 바 -->
+<div th:replace="~{/components/sidebar :: sidebar}"></div>
+
+
+
+<!-- ======= Main ======= -->
+<main id="main" class="main">
+  <div class="container">
+    <h3>매출 기록</h3>
+    <div class="container row">
+      <div class="card col-12 col-md-8">
+        <form method="post">
+          <div class="row">
+
+            <div class="col-12 col-md-6">
+              <label class="my-2" for="cardSales">카드매출</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text">$</span>
+                <input type="text" id="cardSales" class="form-control">
+                <span class="input-group-text">원</span>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label class="my-2" for="sales">현금매출</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text">$</span>
+                <input type="text" id="sales" class="form-control">
+                <span class="input-group-text">원</span>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label class="my-2" for="sales">간편결제</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text">$</span>
+                <input type="text" id="" class="form-control">
+                <span class="input-group-text">원</span>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label class="my-2" for="sales">배달의 민족</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text">$</span>
+                <input type="text" id="" class="form-control">
+                <span class="input-group-text">원</span>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label class="my-2" for="sales">쿠팡이츠</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text">$</span>
+                <input type="text" id="" class="form-control">
+                <span class="input-group-text">원</span>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label class="my-2" for="sales">요기요</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text">$</span>
+                <input type="text" id="" class="form-control">
+                <span class="input-group-text">원</span>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label class="my-2" for="sales">네이버</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text">$</span>
+                <input type="text" id="" class="form-control">
+                <span class="input-group-text">원</span>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label class="my-2" for="sales">땡겨요</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text">$</span>
+                <input type="text" id="" class="form-control">
+                <span class="input-group-text">원</span>
+              </div>
+            </div>
+
+            <div class="container">
+              <hr>
+            </div>
+
+            <p class="my-2 fs-5 fw-bold mb-2 ms-1">합계</p>
+            <div class="d-flex align-items-center ms-2">
+              <img th:src="@{/img/svg/total-money.svg}" width="20" height="20" alt="totalMoney" class="me-2">
+              <span class="fs-5 fw-bold me-2">$</span>
+              <span class="fs-5 fw-bold">2,000,000,000</span>
+              <span class="fs-5 fw-bold ms-2">원</span>
+            </div>
+
+            <div class="container">
+              <hr>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="card col-12 col-md-3 ms-2 mt-3 mt-md-0">
+        <form method="post">
+          <input type="text">
+        </form>
+      </div>
+
+
+    </div>
+  </div>
+
+</main>
+
+<!-- End #main -->
+
+
+<!-- 공통 푸터 -->
+<div th:replace="~{/components/footer :: footer}"></div>
+
+<!-- 최상단 이동 버튼 -->
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+  <i class="bi bi-arrow-up-short"></i>
+</a>
+
+<!-- Vendor JS Files -->
+<script th:src="@{/vendor/apexcharts/apexcharts.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/vendor/chart.js/chart.umd.js}"></script>
+
+<!-- Template Main JS File -->
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

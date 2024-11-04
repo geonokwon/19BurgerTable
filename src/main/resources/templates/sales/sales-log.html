@@ -8,9 +8,6 @@
         <meta content="" name="description" />
         <meta content="" name="keywords" />
 
-        <!-- Favicons -->
-        <!-- <link href="assets/img/favicon.png" rel="icon" />
-        <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" /> -->
 
         <!-- Google Fonts -->
         <link href="https://fonts.gstatic.com" rel="preconnect" />
@@ -22,11 +19,6 @@
         <!-- Vendor CSS Files -->
         <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
         <link th:href="@{/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet" />
-        <link th:href="@{/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet" />
-        <link th:href="@{/vendor/quill/quill.snow.css}" rel="stylesheet" />
-        <link th:href="@{/vendor/quill/quill.bubble.css}" rel="stylesheet" />
-        <link th:href="@{/vendor/remixicon/remixicon.css}" rel="stylesheet" />
-        <link th:href="@{/vendor/simple-datatables/style.css}" rel="stylesheet" />
 
         <!-- Template Main CSS File -->
         <link th:href="@{/css/style.css}" rel="stylesheet" />
@@ -47,7 +39,11 @@
                 <h3>매출 기록</h3>
                 <div class="container">
                     <div class="dropdown mt-3">
-                        <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-sm btn-secondary dropdown-toggle"
+                                type="button"
+                                id="filterDropdown"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false">
                             필터
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="filterDropdown">
@@ -61,7 +57,7 @@
                         <div class="col-auto ps-3">
                             <b>전체매출 : </b>
                         </div>
-                        <button type="button" class="btn btn-primary col-auto">매출 기록</button>
+                        <button type="button" class="btn btn-primary col-auto" onclick="location.href='/salesInput'">매출 기록</button>
                     </div>
                 </div>
                 <div class="card p-2">
