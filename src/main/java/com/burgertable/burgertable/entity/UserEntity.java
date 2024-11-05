@@ -40,12 +40,8 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
-    //SalesEntity 와의 OneToMany 관계
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_num")
-    private List<SalesEntity> salesList;
-
-
-
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<SalesEntity> salesEntities; // 'user' 필드명으로 매핑됨
 }
+
 

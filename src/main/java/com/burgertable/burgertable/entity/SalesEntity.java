@@ -1,6 +1,7 @@
 package com.burgertable.burgertable.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -28,10 +29,13 @@ public class SalesEntity {
     private Timestamp updateDate;
 
     //카드매출
-    private Long card_sales;
+    private Long cardSales;
 
     //현금매출
-    private Long cash_sales;
+    private Long cashSales;
+
+    //간편결제 매출
+    private Long simpleSales;
 
     //배달의민족 매출
     private Long baeminSales;
@@ -48,10 +52,15 @@ public class SalesEntity {
     //땡겨요 매출
     private Long tanyoSales;
 
+    //소셜 총 매출
+    private Long socialSales;
+
     //총매출
     private Long totalSales;
 
-
-
+    //작성자 식별
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_num")
+    private UserEntity user;
 
 }

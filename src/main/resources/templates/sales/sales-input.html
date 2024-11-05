@@ -47,80 +47,80 @@
 
             <!-- 카드매출 -->
             <div class="col-12 col-md-6">
-              <label class="my-2" for="card_sales">카드매출</label>
+              <label class="my-2" for="cardSales">카드매출</label>
               <div class="input-group mb-3">
                 <span class="input-group-text">₩</span>
-                <input type="text" id="card_sales" class="form-control">
+                <input type="text" id="cardSales" name="cardSales" class="form-control">
                 <span class="input-group-text">원</span>
               </div>
             </div>
 
             <!-- 현금매출 -->
             <div class="col-12 col-md-6">
-              <label class="my-2" for="cash_sales">현금매출</label>
+              <label class="my-2" for="cashSales">현금매출</label>
               <div class="input-group mb-3">
                 <span class="input-group-text">₩</span>
-                <input type="text" id="cash_sales" class="form-control">
+                <input type="text" id="cashSales" name="cashSales" class="form-control">
                 <span class="input-group-text">원</span>
               </div>
             </div>
 
             <!-- 간편결제 -->
             <div class="col-12 col-md-6">
-              <label class="my-2" for="simple_sales">간편결제</label>
+              <label class="my-2" for="simpleSales">간편결제</label>
               <div class="input-group mb-3">
                 <span class="input-group-text">₩</span>
-                <input type="text" id="simple_sales" class="form-control">
+                <input type="text" id="simpleSales" name="simpleSales" class="form-control">
                 <span class="input-group-text">원</span>
               </div>
             </div>
 
             <!-- 배달의 민족 -->
             <div class="col-12 col-md-6">
-              <label class="my-2" for="baemin_sales">배달의 민족</label>
+              <label class="my-2" for="baeminSales">배달의 민족</label>
               <div class="input-group mb-3">
                 <span class="input-group-text">₩</span>
-                <input type="text" id="baemin_sales" class="form-control">
+                <input type="text" id="baeminSales" name="baeminSales" class="form-control">
                 <span class="input-group-text">원</span>
               </div>
             </div>
 
             <!-- 쿠팡이츠 -->
             <div class="col-12 col-md-6">
-              <label class="my-2" for="coupang_sales">쿠팡이츠</label>
+              <label class="my-2" for="coupangSales">쿠팡이츠</label>
               <div class="input-group mb-3">
                 <span class="input-group-text">₩</span>
-                <input type="text" id="coupang_sales" class="form-control">
+                <input type="text" id="coupangSales" name="coupangSales" class="form-control">
                 <span class="input-group-text">원</span>
               </div>
             </div>
 
             <!-- 요기요 -->
             <div class="col-12 col-md-6">
-              <label class="my-2" for="yogiyo_sales">요기요</label>
+              <label class="my-2" for="yogiyoSales">요기요</label>
               <div class="input-group mb-3">
                 <span class="input-group-text">₩</span>
-                <input type="text" id="yogiyo_sales" class="form-control">
+                <input type="text" id="yogiyoSales" name="yogiyoSales" class="form-control">
                 <span class="input-group-text">원</span>
               </div>
             </div>
 
             <!-- 네이버 -->
             <div class="col-12 col-md-6">
-              <label class="my-2" for="naver_sales">네이버</label>
+              <label class="my-2" for="naverSales">네이버</label>
               <div class="input-group mb-3">
                 <span class="input-group-text">₩</span>
-                <input type="text" id="naver_sales" class="form-control">
+                <input type="text" id="naverSales" name="naverSales" class="form-control">
                 <span class="input-group-text">원</span>
               </div>
             </div>
 
             <!-- 땡겨요 -->
             <div class="col-12 col-md-6">
-              <label class="my-2" for="tangyo_sales">땡겨요</label>
+              <label class="my-2" for="tanyoSales">땡겨요</label>
               <div class="input-group mb-3">
                 <span class="input-group-text">₩</span>
-                <input type="text" id="tangyo_sales" class="form-control">
+                <input type="text" id="tanyoSales" name="tanyoSales" class="form-control">
                 <span class="input-group-text">원</span>
               </div>
             </div>
@@ -157,10 +157,10 @@
           <label class="my-2" for="userName">작성자</label>
           <div class="input-group mb-3">
             <span class="input-group-text">name</span>
-            <input type="text" id="userName" class="form-control" th:value="${#authentication.getName()}" readonly>
+            <input type="text" id="userName" class="form-control" th:value="${userName}" readonly>
           </div>
         </div>
-        <button type="button" class="btn btn-primary col-auto" onclick="location.href='/'" disabled>매출 저장</button>
+        <button id="saveButton" type="button" class="btn btn-primary col-auto" disabled>매출 저장</button>
       </div>
 
 
@@ -183,7 +183,7 @@
 <!-- Vendor JS Files -->
 <script th:src="@{/js/apexcharts/apexcharts.min.js}"></script>
 <script th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
-<script th:src="@{/vendor/chart.js/chart.umd.js}"></script>
+<script th:src="@{/js/chart.js/chart.umd.js}"></script>
 
 <!-- Template Main JS File -->
 <script th:src="@{/js/main.js}"></script>
@@ -203,5 +203,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"></script>
 <script th:src="@{/js/sales/datepicker-setting.js}"></script>
 <script th:src="@{/js/sales/total-money.js}"></script>
+<script th:src="@{/js/sales/salesSave.js}"></script>
 </body>
 </html>
