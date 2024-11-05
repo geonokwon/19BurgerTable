@@ -16,11 +16,16 @@
   />
 
   <!-- Vendor CSS Files -->
-  <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
-  <link th:href="@{/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet" />
+  <link th:href="@{/css/bootstrap/bootstrap.min.css}" rel="stylesheet" />
+  <link th:href="@{/images/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet" />
 
-  <!-- Template Main CSS File -->
   <link th:href="@{/css/style.css}" rel="stylesheet" />
+
+
+
+
+
+
 
 </head>
 
@@ -37,78 +42,85 @@
   <div class="container">
     <h3>매출 기록</h3>
     <div class="container row">
-      <div class="card col-12 col-md-8">
-        <form method="post">
-          <div class="row">
+      <div class="card col-12 col-lg-8">
+        <div id="sales-input" class="row">
 
+            <!-- 카드매출 -->
             <div class="col-12 col-md-6">
-              <label class="my-2" for="cardSales">카드매출</label>
+              <label class="my-2" for="card_sales">카드매출</label>
               <div class="input-group mb-3">
-                <span class="input-group-text">$</span>
-                <input type="text" id="cardSales" class="form-control">
+                <span class="input-group-text">₩</span>
+                <input type="text" id="card_sales" class="form-control">
                 <span class="input-group-text">원</span>
               </div>
             </div>
 
+            <!-- 현금매출 -->
             <div class="col-12 col-md-6">
-              <label class="my-2" for="sales">현금매출</label>
+              <label class="my-2" for="cash_sales">현금매출</label>
               <div class="input-group mb-3">
-                <span class="input-group-text">$</span>
-                <input type="text" id="sales" class="form-control">
+                <span class="input-group-text">₩</span>
+                <input type="text" id="cash_sales" class="form-control">
                 <span class="input-group-text">원</span>
               </div>
             </div>
 
+            <!-- 간편결제 -->
             <div class="col-12 col-md-6">
-              <label class="my-2" for="sales">간편결제</label>
+              <label class="my-2" for="simple_sales">간편결제</label>
               <div class="input-group mb-3">
-                <span class="input-group-text">$</span>
-                <input type="text" id="" class="form-control">
+                <span class="input-group-text">₩</span>
+                <input type="text" id="simple_sales" class="form-control">
                 <span class="input-group-text">원</span>
               </div>
             </div>
 
+            <!-- 배달의 민족 -->
             <div class="col-12 col-md-6">
-              <label class="my-2" for="sales">배달의 민족</label>
+              <label class="my-2" for="baemin_sales">배달의 민족</label>
               <div class="input-group mb-3">
-                <span class="input-group-text">$</span>
-                <input type="text" id="" class="form-control">
+                <span class="input-group-text">₩</span>
+                <input type="text" id="baemin_sales" class="form-control">
                 <span class="input-group-text">원</span>
               </div>
             </div>
 
+            <!-- 쿠팡이츠 -->
             <div class="col-12 col-md-6">
-              <label class="my-2" for="sales">쿠팡이츠</label>
+              <label class="my-2" for="coupang_sales">쿠팡이츠</label>
               <div class="input-group mb-3">
-                <span class="input-group-text">$</span>
-                <input type="text" id="" class="form-control">
+                <span class="input-group-text">₩</span>
+                <input type="text" id="coupang_sales" class="form-control">
                 <span class="input-group-text">원</span>
               </div>
             </div>
 
+            <!-- 요기요 -->
             <div class="col-12 col-md-6">
-              <label class="my-2" for="sales">요기요</label>
+              <label class="my-2" for="yogiyo_sales">요기요</label>
               <div class="input-group mb-3">
-                <span class="input-group-text">$</span>
-                <input type="text" id="" class="form-control">
+                <span class="input-group-text">₩</span>
+                <input type="text" id="yogiyo_sales" class="form-control">
                 <span class="input-group-text">원</span>
               </div>
             </div>
 
+            <!-- 네이버 -->
             <div class="col-12 col-md-6">
-              <label class="my-2" for="sales">네이버</label>
+              <label class="my-2" for="naver_sales">네이버</label>
               <div class="input-group mb-3">
-                <span class="input-group-text">$</span>
-                <input type="text" id="" class="form-control">
+                <span class="input-group-text">₩</span>
+                <input type="text" id="naver_sales" class="form-control">
                 <span class="input-group-text">원</span>
               </div>
             </div>
 
+            <!-- 땡겨요 -->
             <div class="col-12 col-md-6">
-              <label class="my-2" for="sales">땡겨요</label>
+              <label class="my-2" for="tangyo_sales">땡겨요</label>
               <div class="input-group mb-3">
-                <span class="input-group-text">$</span>
-                <input type="text" id="" class="form-control">
+                <span class="input-group-text">₩</span>
+                <input type="text" id="tangyo_sales" class="form-control">
                 <span class="input-group-text">원</span>
               </div>
             </div>
@@ -117,25 +129,38 @@
               <hr>
             </div>
 
+            <!-- 총 매출 -->
             <p class="my-2 fs-5 fw-bold mb-2 ms-1">합계</p>
             <div class="d-flex align-items-center ms-2">
-              <img th:src="@{/img/svg/total-money.svg}" width="20" height="20" alt="totalMoney" class="me-2">
-              <span class="fs-5 fw-bold me-2">$</span>
-              <span class="fs-5 fw-bold">2,000,000,000</span>
+              <img th:src="@{/images/svg/total-money.svg}" width="20" height="20" alt="totalMoney" class="me-2">
+              <span class="fs-5 fw-bold me-2">₩</span>
+              <span id="totalSales" class="fs-5 fw-bold">0</span>
               <span class="fs-5 fw-bold ms-2">원</span>
             </div>
 
             <div class="container">
               <hr>
             </div>
+
+
           </div>
-        </form>
       </div>
 
-      <div class="card col-12 col-md-3 ms-2 mt-3 mt-md-0">
-        <form method="post">
-          <input type="text">
-        </form>
+      <!-- 날짜 선택기 영역 -->
+      <div class="card col-12 col-lg-3 ms-2 mt-3 mt-md-0 p-3">
+        <div id="datepickerContainer" class="d-flex justify-content-center">
+          <div id="datepicker"></div> <!-- 실제 달력 요소 -->
+        </div>
+        <input type="text" id="salesDate" class="form-control mt-2" placeholder="선택된 날짜">
+
+        <div class="col-12 col-md-12 mt-2">
+          <label class="my-2" for="userName">작성자</label>
+          <div class="input-group mb-3">
+            <span class="input-group-text">name</span>
+            <input type="text" id="userName" class="form-control" th:value="${#authentication.getName()}" readonly>
+          </div>
+        </div>
+        <button type="button" class="btn btn-primary col-auto" onclick="location.href='/'" disabled>매출 저장</button>
       </div>
 
 
@@ -156,11 +181,27 @@
 </a>
 
 <!-- Vendor JS Files -->
-<script th:src="@{/vendor/apexcharts/apexcharts.min.js}"></script>
-<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/apexcharts/apexcharts.min.js}"></script>
+<script th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
 <script th:src="@{/vendor/chart.js/chart.umd.js}"></script>
 
 <!-- Template Main JS File -->
 <script th:src="@{/js/main.js}"></script>
+
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<!-- Bootstrap Datepicker CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+<link th:href="@{/css/sales/datepicker.css}" rel="stylesheet" />
+
+<!-- Bootstrap Datepicker JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+<!-- 한국어 로케일 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"></script>
+<script th:src="@{/js/sales/datepicker-setting.js}"></script>
+<script th:src="@{/js/sales/total-money.js}"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!-- ======= Sidebar ======= -->
-<aside id="sidebar" class="sidebar" th:fragment="sidebar">
+<aside id="sidebar" class="sidebar" th:fragment="sidebar"  xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
     <ul class="sidebar-nav" id="sidebar-nav">
         <li class="nav-item">
             <a class="nav-link" th:href="@{/}">
@@ -18,7 +18,7 @@
             </a>
             <ul id="charts-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a th:href="@{/salesLog}">
+                    <a th:href="@{/sales/salesLog}">
                         <i class="bi bi-circle"></i>
                         <span>매출 기록</span>
                     </a>
@@ -36,10 +36,18 @@
         <li class="nav-heading">Pages</li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-login.html">
+            <div sec:authorize="isAnonymous()">
+                <a class="nav-link collapsed" th:href="@{/login}">
                 <i class="bi bi-box-arrow-in-right"></i>
-                <span>Login</span>
-            </a>
+                <span>로그인</span>
+                </a>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <a class="nav-link collapsed" th:href="@{/logout}">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    <span>로그아웃</span>
+                </a>
+            </div>
         </li>
         <!-- End Login Page Nav -->
     </ul>

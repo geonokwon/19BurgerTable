@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>19BURGER TABLE</title>
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+            href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+            rel="stylesheet"
+    />
+
+    <!-- Vendor CSS Files -->
+    <link th:href="@{/css/bootstrap/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/images/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet" />
+
+    <link th:href="@{/css/login/login.css}" rel="stylesheet" />
+
+
+
+
+
+
+
+</head>
+
+<body>
+
+<!-- ======= Main ======= -->
+<main id="main" class="main">
+    <div class="container-fluid"> <!-- 반응형 컨테이너 -->
+        <div class="row justify-content-center">
+            <form class="card login col-12 col-sm-8 col-md-6 col-lg-4" th:action="@{/login/loginCheck}" method="post"> <!-- 반응형 그리드 클래스 추가 -->
+                <a class="mb-3" th:href="@{/}">19BURGERTABLE</a>
+                <input type="text" name="userId" class="form-control my-2" placeholder="Username"> <!-- 여백 추가 -->
+                <input type="password" name="userPassword" class="form-control my-2" placeholder="Password"> <!-- 여백 추가 -->
+                <button type="submit" class="btn btn-primary w-100 mt-3">Login</button> <!-- 버튼을 반응형으로 -->
+            </form>
+        </div>
+    </div>
+</main>
+
+<!-- End #main -->
+
+<!-- Template Main JS File -->
+<script th:src="@{/js/main.js}"></script>
+
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+
+
+.datepicker {
+    font-size: 14px; /* 기본 폰트 크기를 설정 */
+    overflow: hidden;
+    background-color: #fff;
+    border-radius: 0 !important;
+    padding: 15px 20px !important;
+    margin: 0 auto; /* 중앙 정렬 */
+    width: 100%; /* 너비 조절 */
+    max-width: 280px; /* 최대 너비 제한 */
+    transform: scale(0.9); /* 크기 조절 */
+    transform-origin: center; /* 축소 기준을 중앙으로 */
+}
+
+.datepicker table {
+    margin: 0 auto; /* 테이블 중앙 정렬 */
+}
+
+.datepicker-dropdown {
+    top: 0;
+    left: 50% !important;
+    transform: translateX(-50%); /* 중앙 정렬 */
+}
+
+.datepicker-dropdown.datepicker-orient-left:before,
+.datepicker-dropdown.datepicker-orient-left:after,
+.datepicker-dropdown.datepicker-orient-right:before,
+.datepicker-dropdown.datepicker-orient-right:after {
+    left: 50% !important;
+    transform: translateX(-50%); /* 중앙 정렬 */
+}

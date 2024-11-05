@@ -19,6 +19,10 @@ body {
   color: #444444;
 }
 
+.table th, .table td {
+  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+}
+
 a {
   color: #4154f1;
   text-decoration: none;
