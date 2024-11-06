@@ -35,7 +35,7 @@ public class Sales {
 
 
 
-        for (int i = 0; i < 100; i++){
+        for (int i = 0; i < 200; i++){
             SalesEntity salesEntity = new SalesEntity();
             salesEntity.setCardSales(card);
             salesEntity.setCashSales(cash);
