@@ -1,10 +1,12 @@
 package com.burgertable.burgertable.dto;
 
 
+import com.burgertable.burgertable.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.catalina.User;
 
 import java.sql.Timestamp;
 
@@ -17,26 +19,16 @@ public class SalesLogDataDTO {
     //PK
     private Long salesId;
     //카드매출
-    private Long cardSales;
+    private String cardSales;
     //현금매출
-    private Long cashSales;
+    private String cashSales;
     //간편결제 매출
-    private Long simpleSales;
-    //배달의민족 매출
-    private Long baeminSales;
-    //쿠팡이츠 매출
-    private Long coupangSales;
-    //요기요 매출
-    private Long yogiyoSales;
-    //네이버 매출
-    private Long naverSales;
-    //땡겨요 매출
-    private Long tanyoSales;
+    private String socialSales;
     //총매출
-    private Long totalSales;
+    private String totalSales;
     //매출 날짜
     private Timestamp salesDate;
     //작성자
-    private String userName;
+    private UserEntity user;
 
 }

@@ -1,12 +1,14 @@
 package com.burgertable.burgertable.controller;
 
 import com.burgertable.burgertable.dto.SalesSaveDataDTO;
+import com.burgertable.burgertable.service.sales.SalesLogService;
 import com.burgertable.burgertable.service.sales.SaveService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Objects;
 
 @Slf4j
 @RestController
@@ -14,6 +16,7 @@ import java.util.Map;
 @RequestMapping("/sales")
 public class SalesAPIController {
     private final SaveService saveService;
+    private final SalesLogService salesLogService;
 
     @PostMapping("/save")
     @ResponseBody
@@ -25,4 +28,9 @@ public class SalesAPIController {
         return Map.of("result", "fail");
     }
 
+    @PostMapping("/getSalesLog")
+    @ResponseBody
+    public Map<String, Object> getSalesLog(@RequestBody Long salesPK) {
+        return salesLogService.getSalesData(salesPK);
+    }
 }
