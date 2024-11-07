@@ -17,8 +17,6 @@ public interface SalesLogMapper {
     //null 값 처리를 해줌
     SalesLogMapper INSTANCE = Mappers.getMapper(SalesLogMapper.class);
 
-
-
     //SalesEntity -> SalesLogDataDTO 매핑
     //포맷팅 후 처리
     @Mapping(target = "cardSales", ignore = true)

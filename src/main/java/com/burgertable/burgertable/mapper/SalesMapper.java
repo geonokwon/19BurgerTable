@@ -1,7 +1,9 @@
 package com.burgertable.burgertable.mapper;
 
+import com.burgertable.burgertable.dto.SalesMonthDataDTO;
 import com.burgertable.burgertable.dto.SalesSaveDataDTO;
 import com.burgertable.burgertable.entity.SalesEntity;
+import com.burgertable.burgertable.entity.SalesMonthEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -12,8 +14,12 @@ public interface SalesMapper {
     SalesMapper INSTANCE = Mappers.getMapper(SalesMapper.class);
 
     //SalesSaveDataDTO -> SalesEntity 매핑
-    SalesEntity toSalesEntity (SalesSaveDataDTO salesSaveDataDTO);
-    //SalesEntity ->  SalesSaveDataDTO 매핑
-    SalesSaveDataDTO toSalesSaveDataDTO (SalesEntity salesEntity);
+    SalesEntity toSalesEntity(SalesSaveDataDTO salesSaveDataDTO);
 
+    //SalesEntity ->  SalesSaveDataDTO 매핑
+    SalesSaveDataDTO toSalesSaveDataDTO(SalesEntity salesEntity);
+
+    //SalesMonthEntity -> SalesMonthDataDTO 매핑
+    SalesMonthDataDTO toSalesMonthDataDTO(SalesMonthEntity salesMonthEntity);
 }
+

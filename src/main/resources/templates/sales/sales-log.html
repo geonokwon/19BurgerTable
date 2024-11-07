@@ -36,30 +36,241 @@
         <!-- ======= Main ======= -->
         <main id="main" class="main">
             <div class="container">
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="p-0 m-0"><span th:text="${salesMonthDataDTO.month}"></span> 매출</h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- 월 매출 -->
+                        <div class="card-title fs-5 p-0">
+                            <div class="col-12 col-lg-3">
+                                <label class="my-2" for="salesMonth">월 매출</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">₩</span>
+                                    <input type="text" id="salesMonth" name="cardSales_month" class="form-control text-end"
+                                           th:value="${#numbers.formatInteger(salesMonthDataDTO.totalMonth, 0, 'COMMA')}" readonly>
+                                    <span class="input-group-text">원</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 월 수수료(소셜) -->
+                        <div class="card-title fs-5 p-0">
+                            <div class="card-title fs-5 p-0 mt-3">
+                                <div class="col-12 col-lg-3">
+                                    <label class="my-2" for="feeMonth">월 수수료(소셜)</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">₩</span>
+                                        <input type="text" id="feeMonth" name="cardSales_month" class="form-control text-end" readonly>
+                                        <span class="input-group-text">원</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container p-0 mt-4">
+                            <hr class="mt-3">
+                        </div>
+
+                        <div class="card-title fs-4 p-0 my-3">월 순수익 ₩ 2,000,000 원</div>
+
+                        <div class="accordion" id="accordionExample">
+                            <!-- 월 상세 매출 -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                        월 상세 매출
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        <div class="row">
+                                            <!-- 카드매출 -->
+                                            <div class="col-12 col-lg-3">
+                                                <label class="my-2" for="cardMonth">카드매출</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₩</span>
+                                                    <input type="text" id="cardMonth" name="cardSales_month" class="form-control text-end"
+                                                           th:value="${#numbers.formatInteger(salesMonthDataDTO.cardMonth, 0, 'COMMA')}" readonly>
+                                                    <span class="input-group-text">원</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- 현금매출 -->
+                                            <div class="col-12 col-lg-3">
+                                                <label class="my-2" for="cashMonth">현금매출</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₩</span>
+                                                    <input type="text" id="cashMonth" name="cardSales_month" class="form-control text-end"
+                                                           th:value="${#numbers.formatInteger(salesMonthDataDTO.cashMonth, 0, 'COMMA')}" readonly>
+                                                    <span class="input-group-text">원</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- 간편결제 -->
+                                            <div class="col-12 col-lg-3">
+                                                <label class="my-2" for="simpleMonth">간편결제</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₩</span>
+                                                    <input type="text" id="simpleMonth" name="simpleSales" class="form-control text-end"
+                                                           th:value="${#numbers.formatInteger(salesMonthDataDTO.simpleMonth, 0, 'COMMA')}" readonly>
+                                                    <span class="input-group-text">원</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- 배달의 민족 -->
+                                            <div class="col-12 col-lg-3">
+                                                <label class="my-2" for="baeminMonth">배달의 민족</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₩</span>
+                                                    <input type="text" id="baeminMonth" name="baeminSales" class="form-control text-end"
+                                                           th:value="${#numbers.formatInteger(salesMonthDataDTO.baeminMonth, 0, 'COMMA')}" readonly>
+                                                    <span class="input-group-text">원</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- 쿠팡이츠 -->
+                                            <div class="col-12 col-lg-3">
+                                                <label class="my-2" for="coupangMonth">쿠팡이츠</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₩</span>
+                                                    <input type="text" id="coupangMonth" name="coupangSales" class="form-control text-end"
+                                                           th:value="${#numbers.formatInteger(salesMonthDataDTO.coupangMonth, 0, 'COMMA')}" readonly>
+                                                    <span class="input-group-text">원</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- 요기요 -->
+                                            <div class="col-12 col-lg-3">
+                                                <label class="my-2" for="yogiyoMonth">요기요</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₩</span>
+                                                    <input type="text" id="yogiyoMonth" name="yogiyoSales" class="form-control text-end"
+                                                           th:value="${#numbers.formatInteger(salesMonthDataDTO.yogiyoMonth, 0, 'COMMA')}" readonly>
+                                                    <span class="input-group-text">원</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- 네이버 -->
+                                            <div class="col-12 col-lg-3">
+                                                <label class="my-2" for="naverMonth">네이버</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₩</span>
+                                                    <input type="text" id="naverMonth" name="naverSales" class="form-control text-end"
+                                                           th:value="${#numbers.formatInteger(salesMonthDataDTO.naverMonth, 0, 'COMMA')}" readonly>
+                                                    <span class="input-group-text">원</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- 땡겨요 -->
+                                            <div class="col-12 col-lg-3">
+                                                <label class="my-2" for="tanyoMonth">땡겨요</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₩</span>
+                                                    <input type="text" id="tanyoMonth" name="tanyoSales" class="form-control text-end"
+                                                           th:value="${#numbers.formatInteger(salesMonthDataDTO.tangyoMonth, 0, 'COMMA')}" readonly>
+                                                    <span class="input-group-text">원</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 월 상세 수수료 -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        월 상세 수수료(소셜)
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        <div class="row">
+
+                                            <!-- 배달의 민족 -->
+                                            <div class="col-12 col-lg-3">
+                                                <label class="my-2" for="baeminFee">배달의 민족(수수료)</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₩</span>
+                                                    <input type="text" id="baeminFee" name="baeminSales" class="form-control text-end">
+                                                    <span class="input-group-text">원</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- 쿠팡이츠 -->
+                                            <div class="col-12 col-lg-3">
+                                                <label class="my-2" for="coupangFee">쿠팡이츠(수수료)</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₩</span>
+                                                    <input type="text" id="coupangFee" name="coupangSales" class="form-control text-end">
+                                                    <span class="input-group-text">원</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- 요기요 -->
+                                            <div class="col-12 col-lg-3">
+                                                <label class="my-2" for="yogiyoFee">요기요(수수료)</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₩</span>
+                                                    <input type="text" id="yogiyoFee" name="yogiyoSales" class="form-control text-end">
+                                                    <span class="input-group-text">원</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- 네이버 -->
+                                            <div class="col-12 col-lg-3">
+                                                <label class="my-2" for="naverFee">네이버(수수료)</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₩</span>
+                                                    <input type="text" id="naverFee" name="naverSales" class="form-control text-end">
+                                                    <span class="input-group-text">원</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- 땡겨요 -->
+                                            <div class="col-12 col-lg-3">
+                                                <label class="my-2" for="tanyoFee">땡겨요(수수료)</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₩</span>
+                                                    <input type="text" id="tanyoFee" name="tanyoSales" class="form-control text-end">
+                                                    <span class="input-group-text">원</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
                 <h3 class="col-11 p-0">매출 리스트</h3>
                 <div class="container">
-                    <div class="dropdown mt-3">
-                        <button class="btn btn-sm btn-secondary dropdown-toggle"
-                                type="button"
-                                id="filterDropdown"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                            필터
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="filterDropdown">
-                            <li><a class="dropdown-item" href="#">오늘</a></li>
-                            <li><a class="dropdown-item" href="#">이번 주</a></li>
-                            <li><a class="dropdown-item" href="#">이번 달</a></li>
-                            <li><a class="dropdown-item" href="#">올해</a></li>
-                        </ul>
-                    </div>
                     <div class="row d-flex justify-content-between align-items-center mb-3">
-                        <div class="col-auto ps-3">
-                            <b>전체매출 : </b>
+                        <div class="dropdown col-auto">
+                            <button class="btn btn-sm btn-secondary dropdown-toggle"
+                                    type="button"
+                                    id="filterDropdown"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                필터
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="filterDropdown">
+                                <li><a class="dropdown-item" href="#">오늘</a></li>
+                                <li><a class="dropdown-item" href="#">이번 주</a></li>
+                                <li><a class="dropdown-item" href="#">이번 달</a></li>
+                                <li><a class="dropdown-item" href="#">올해</a></li>
+                            </ul>
                         </div>
                         <button type="button" class="btn btn-primary col-auto" onclick="location.href='/sales/salesInput'">매출 기록</button>
                     </div>
                 </div>
+
                 <div class="card p-2">
                     <div class="table-responsive">
                         <table class="table table-hover">
@@ -89,19 +300,6 @@
                             </tbody>
                         </table>
                     </div>
-
-                    <!-- 페이지네이션 -->
-<!--                    <div class="d-flex justify-content-center">-->
-<!--                        <ul class="pagination mb-0">-->
-<!--                            <li class="page-item">-->
-<!--                                <a class="page-link" th:if="${salesLogPageDTO.hasPrevious}" th:href="@{/salesLog(page=${salesLogPageDTO.currentPage - 1})}">&lt;</a>-->
-<!--                            </li>-->
-<!--                            <li class="page-item">-->
-<!--                                <a class="page-link" th:if="${salesLogPageDTO.currentPage + 1}" href="#">1</a>-->
-<!--                            </li>-->
-<!--                            <li class="page-item"><a class="page-link" href="#">&gt;</a></li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
 
                     <!-- 페이지네이션 -->
                     <div class="d-flex justify-content-center">
@@ -145,7 +343,7 @@
                                                     <label class="my-2" for="cardSales">카드매출</label>
                                                     <div class="input-group mb-3">
                                                         <span class="input-group-text">₩</span>
-                                                        <input type="text" id="cardSales" name="cardSales" class="form-control" readonly>
+                                                        <input type="text" id="cardSales" name="cardSales" class="form-control text-end" readonly>
                                                         <span class="input-group-text">원</span>
                                                     </div>
                                                 </div>
@@ -155,7 +353,7 @@
                                                     <label class="my-2" for="cashSales">현금매출</label>
                                                     <div class="input-group mb-3">
                                                         <span class="input-group-text">₩</span>
-                                                        <input type="text" id="cashSales" name="cashSales" class="form-control" readonly>
+                                                        <input type="text" id="cashSales" name="cashSales" class="form-control text-end" readonly>
                                                         <span class="input-group-text">원</span>
                                                     </div>
                                                 </div>
@@ -165,7 +363,7 @@
                                                     <label class="my-2" for="simpleSales">간편결제</label>
                                                     <div class="input-group mb-3">
                                                         <span class="input-group-text">₩</span>
-                                                        <input type="text" id="simpleSales" name="simpleSales" class="form-control" readonly>
+                                                        <input type="text" id="simpleSales" name="simpleSales" class="form-control text-end" readonly>
                                                         <span class="input-group-text">원</span>
                                                     </div>
                                                 </div>
@@ -175,7 +373,7 @@
                                                     <label class="my-2" for="baeminSales">배달의 민족</label>
                                                     <div class="input-group mb-3">
                                                         <span class="input-group-text">₩</span>
-                                                        <input type="text" id="baeminSales" name="baeminSales" class="form-control" readonly>
+                                                        <input type="text" id="baeminSales" name="baeminSales" class="form-control text-end" readonly>
                                                         <span class="input-group-text">원</span>
                                                     </div>
                                                 </div>
@@ -185,7 +383,7 @@
                                                     <label class="my-2" for="coupangSales">쿠팡이츠</label>
                                                     <div class="input-group mb-3">
                                                         <span class="input-group-text">₩</span>
-                                                        <input type="text" id="coupangSales" name="coupangSales" class="form-control" readonly>
+                                                        <input type="text" id="coupangSales" name="coupangSales" class="form-control text-end" readonly>
                                                         <span class="input-group-text">원</span>
                                                     </div>
                                                 </div>
@@ -195,7 +393,7 @@
                                                     <label class="my-2" for="yogiyoSales">요기요</label>
                                                     <div class="input-group mb-3">
                                                         <span class="input-group-text">₩</span>
-                                                        <input type="text" id="yogiyoSales" name="yogiyoSales" class="form-control" readonly>
+                                                        <input type="text" id="yogiyoSales" name="yogiyoSales" class="form-control text-end" readonly>
                                                         <span class="input-group-text">원</span>
                                                     </div>
                                                 </div>
@@ -205,7 +403,7 @@
                                                     <label class="my-2" for="naverSales">네이버</label>
                                                     <div class="input-group mb-3">
                                                         <span class="input-group-text">₩</span>
-                                                        <input type="text" id="naverSales" name="naverSales" class="form-control" readonly>
+                                                        <input type="text" id="naverSales" name="naverSales" class="form-control text-end" readonly>
                                                         <span class="input-group-text">원</span>
                                                     </div>
                                                 </div>
@@ -215,7 +413,7 @@
                                                     <label class="my-2" for="tanyoSales">땡겨요</label>
                                                     <div class="input-group mb-3">
                                                         <span class="input-group-text">₩</span>
-                                                        <input type="text" id="tanyoSales" name="tanyoSales" class="form-control" readonly>
+                                                        <input type="text" id="tanyoSales" name="tanyoSales" class="form-control text-end" readonly>
                                                         <span class="input-group-text">원</span>
                                                     </div>
                                                 </div>

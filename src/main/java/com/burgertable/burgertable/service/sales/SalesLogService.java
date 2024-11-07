@@ -54,7 +54,4 @@ public class SalesLogService {
         }
         return Map.of("response", "fail");
     }
-
-
-
 }

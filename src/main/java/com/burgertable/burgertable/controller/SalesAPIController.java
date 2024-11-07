@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-import java.util.Objects;
 
 @Slf4j
 @RestController
@@ -21,6 +20,7 @@ public class SalesAPIController {
     @PostMapping("/save")
     @ResponseBody
     public Map<String, String> save(@RequestBody SalesSaveDataDTO salesSaveDataDTO) {
+        //매출기록 저장
         log.info("save data: {}", salesSaveDataDTO);
         if (saveService.save(salesSaveDataDTO)){
             return Map.of("result", "success");
@@ -31,6 +31,7 @@ public class SalesAPIController {
     @PostMapping("/getSalesLog")
     @ResponseBody
     public Map<String, Object> getSalesLog(@RequestBody Long salesPK) {
+        //매출기록 리스트 반환
         return salesLogService.getSalesData(salesPK);
     }
 }
