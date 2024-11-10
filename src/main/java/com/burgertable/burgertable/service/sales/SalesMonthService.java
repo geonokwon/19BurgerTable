@@ -17,12 +17,10 @@ public class SalesMonthService {
 
     private final SalesMonthRepository salesMonthRepository;
 
-
     //월별 매출을 넘겨주는 코드
-    public SalesMonthDataDTO getSalesMonthData() {
-        YearMonth currentYearMonth = YearMonth.now();
+    public SalesMonthDataDTO getSalesMonthData(YearMonth yearMonth) {
         //오늘 날짜로 하여금 월 별 총금액 데이터를 불러온다
-        SalesMonthEntity loadMonthData = salesMonthRepository.findByMonth(currentYearMonth.toString());
+        SalesMonthEntity loadMonthData = salesMonthRepository.findByMonth(yearMonth.toString());
 
         //엔티티 DTO 로 매핑하여 넘겨준다
         SalesMapper salesMapper = SalesMapper.INSTANCE;

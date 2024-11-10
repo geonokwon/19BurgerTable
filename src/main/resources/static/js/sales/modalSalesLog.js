@@ -25,6 +25,9 @@ function getSalesLog(id) {
       $("#tanyoSales").val(formatCurrency(res.result.tanyoSales));
       $("#totalSales").text(formatCurrency(res.result.totalSales));
 
+      //수정버튼!
+      //a태그로 href 로 주소 추가해서 보내기!
+
       //모달오픈 (나중에 API 반환 성공시)
       $("#salesModal").show();
     },
@@ -32,6 +35,4 @@ function getSalesLog(id) {
       console.log("Error:", err);
     }
   })
-
-
 }

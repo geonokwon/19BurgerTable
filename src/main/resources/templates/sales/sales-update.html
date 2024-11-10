@@ -41,7 +41,7 @@
 <main id="main" class="main">
   <div class="container">
     <div class="container row justify-content-center">
-        <h3 class="col-11 p-0">매출 기록</h3>
+        <h3 class="col-11 p-0">매출 수정</h3>
       <div class="card col-12 col-lg-8">
         <div id="sales-input" class="row">
 
@@ -50,7 +50,7 @@
               <label class="my-2" for="cardSales">카드매출</label>
               <div class="input-group mb-3">
                 <span class="input-group-text">₩</span>
-                <input type="text" id="cardSales" name="cardSales" class="form-control">
+                <input type="text" id="cardSales" name="cardSales" class="form-control" th:value="${}">
                 <span class="input-group-text">원</span>
               </div>
             </div>

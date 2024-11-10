@@ -47,7 +47,7 @@ public class SaveService {
         return true;
     }
 
-    //region 내가 뭐하는거
+    //region 무슨함수
     private void updateMonthlySummary(Timestamp salesDate) {
         YearMonth month = YearMonth.from(salesDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         String yearMonthStr = month.toString();
@@ -70,7 +70,6 @@ public class SaveService {
         Long naverSum = salesRepository.sumNaverSalesByMonth(yearMonthStr);
         Long tangyoSum = salesRepository.sumTanyoSalesByMonth(yearMonthStr);
         Long totalSum = salesRepository.sumTotalSalesByMonth(yearMonthStr);
-
 
         // 매출 합계를 SalesMonthEntity에 설정
         salesMonth.setCardMonth(cardSum != null ? cardSum : 0L);

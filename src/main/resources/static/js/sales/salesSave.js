@@ -71,7 +71,6 @@ $(document).ready(function () {
       });
     }
   });
-
   //초기 유효성 체크 실행
   checkValidity();
 });

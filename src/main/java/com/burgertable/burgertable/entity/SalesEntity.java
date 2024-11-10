@@ -58,6 +58,9 @@ public class SalesEntity {
     //총매출
     private Long totalSales;
 
+    //삭제여부
+    private boolean isDeleted = false;
+
     //작성자 식별
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_num")
