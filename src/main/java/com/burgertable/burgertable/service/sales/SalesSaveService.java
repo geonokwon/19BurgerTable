@@ -1,20 +1,24 @@
 package com.burgertable.burgertable.service.sales;
 
-import com.burgertable.burgertable.dto.SalesSaveDataDTO;
+import com.burgertable.burgertable.dto.sales.FeesDTO;
+import com.burgertable.burgertable.dto.sales.SalesMonthPureDTO;
+import com.burgertable.burgertable.dto.sales.SalesSaveDataDTO;
+import com.burgertable.burgertable.entity.FeesEntity;
 import com.burgertable.burgertable.entity.SalesEntity;
 import com.burgertable.burgertable.entity.SalesMonthEntity;
-import com.burgertable.burgertable.mapper.SalesMapper;
-import com.burgertable.burgertable.repository.SalesMonthRepository;
-import com.burgertable.burgertable.repository.SalesRepository;
+import com.burgertable.burgertable.entity.SalesMonthPureEntity;
+import com.burgertable.burgertable.mapper.sales.SalesMapper;
+import com.burgertable.burgertable.repository.sales.FeesRepository;
+import com.burgertable.burgertable.repository.sales.SalesMonthPureRepository;
+import com.burgertable.burgertable.repository.sales.SalesMonthRepository;
+import com.burgertable.burgertable.repository.sales.SalesRepository;
 import com.burgertable.burgertable.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.ZoneId;
 import java.util.Objects;
@@ -23,10 +27,12 @@ import java.util.stream.Stream;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class SaveService {
+public class SalesSaveService {
     private final UserRepository userRepository;
     private final SalesRepository salesRepository;
     private final SalesMonthRepository salesMonthRepository;
+    private final SalesMonthPureRepository salesMonthPureRepository;
+    private final FeesRepository feesRepository;
 
     @Transactional
     public boolean save(SalesSaveDataDTO salesSaveDataDTO) {
@@ -44,10 +50,11 @@ public class SaveService {
 
         //일 매출 저장할때 월 매출 반영하기 위함
         updateMonthlySummary(saveSales.getSalesDate());
+
         return true;
     }
 
-    //region 무슨함수
+    //월별 총 매출 저장함수
     private void updateMonthlySummary(Timestamp salesDate) {
         YearMonth month = YearMonth.from(salesDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         String yearMonthStr = month.toString();
@@ -68,7 +75,7 @@ public class SaveService {
         Long coupangSum = salesRepository.sumCoupangSalesByMonth(yearMonthStr);
         Long yogiyoSum = salesRepository.sumYogiyoSalesByMonth(yearMonthStr);
         Long naverSum = salesRepository.sumNaverSalesByMonth(yearMonthStr);
-        Long tangyoSum = salesRepository.sumTanyoSalesByMonth(yearMonthStr);
+        Long tanyoSum = salesRepository.sumTanyoSalesByMonth(yearMonthStr);
         Long totalSum = salesRepository.sumTotalSalesByMonth(yearMonthStr);
 
         // 매출 합계를 SalesMonthEntity에 설정
@@ -79,15 +86,19 @@ public class SaveService {
         salesMonth.setCoupangMonth(coupangSum != null ? coupangSum : 0L);
         salesMonth.setYogiyoMonth(yogiyoSum != null ? yogiyoSum : 0L);
         salesMonth.setNaverMonth(naverSum != null ? naverSum : 0L);
-        salesMonth.setTangyoMonth(tangyoSum != null ? tangyoSum : 0L);
+        salesMonth.setTanyoMonth(tanyoSum != null ? tanyoSum : 0L);
         salesMonth.setTotalMonth(totalSum != null ? totalSum : 0L);
 
+        //순수익이 저장되어 있다면 수수료 다시 계산
+        if (salesMonth.getSalesMonthPure() != null){
+            FeesDTO newFeesDTO = calculateFees(salesMonth, salesMonth.getSalesMonthPure());
+            FeesEntity feesEntity = SalesMapper.INSTANCE.toFeesEntity(newFeesDTO);
+            feesRepository.save(feesEntity);
+        }
 
         //업데이트된 집계 데이터 저장
         salesMonthRepository.save(salesMonth);
-
     }
-    //endregion
 
     //DTO 클래스를 소셜(외부)금액만 합계로 반환
     //java 8 이후 나온 Stream 을 사용해서 null 값 제거후 long 타입으로 변환후 sum 합을 반환
@@ -100,6 +111,47 @@ public class SaveService {
     }
 
 
+    //순수익 받아와 저장
+    public FeesDTO setSalesMonthPureToFees(SalesMonthPureDTO salesMonthPureDTO) {
+        SalesMonthPureEntity salesMonthPureEntity = SalesMapper.INSTANCE.toSalesMonthPureEntity(salesMonthPureDTO);
+        SalesMonthPureEntity saveMonthPureEntity = salesMonthPureRepository.save(salesMonthPureEntity);
 
+        if (saveMonthPureEntity != null){
+            SalesMonthEntity salesMonthEntity = salesMonthRepository.findByMonth(saveMonthPureEntity.getMonth());
 
+            FeesDTO feesDTO = calculateFees(salesMonthEntity, saveMonthPureEntity);
+            FeesEntity feesEntity = SalesMapper.INSTANCE.toFeesEntity(feesDTO);
+            FeesEntity saveFeesEntity = feesRepository.save(feesEntity);
+
+            salesMonthEntity.setFees(saveFeesEntity);
+            salesMonthEntity.setSalesMonthPure(saveMonthPureEntity);
+
+            return feesDTO;
+        }
+        return null;
+    }
+
+    //수수료 저장 및 계산 함수
+    public FeesDTO calculateFees(SalesMonthEntity salesMonthEntity, SalesMonthPureEntity salesMonthPureEntity){
+        Long card = salesMonthPureEntity.getCardMonthPure() != 0 ? salesMonthEntity.getCardMonth() - salesMonthPureEntity.getCardMonthPure() : 0;
+        Long simple = salesMonthPureEntity.getSimpleMonthPure() != 0 ? salesMonthEntity.getSimpleMonth() - salesMonthPureEntity.getSimpleMonthPure() : 0;
+        Long beamin = salesMonthPureEntity.getBaeminMonthPure() != 0 ? salesMonthEntity.getBaeminMonth() - salesMonthPureEntity.getBaeminMonthPure() : 0;
+        Long coupang = salesMonthPureEntity.getCoupangMonthPure() != 0 ? salesMonthEntity.getCoupangMonth() - salesMonthPureEntity.getCoupangMonthPure() : 0;
+        Long yogiyo = salesMonthPureEntity.getYogiyoMonthPure() != 0 ? salesMonthEntity.getYogiyoMonth() - salesMonthPureEntity.getYogiyoMonthPure() : 0;
+        Long naver = salesMonthPureEntity.getNaverMonthPure() != 0 ? salesMonthEntity.getNaverMonth() - salesMonthPureEntity.getNaverMonthPure() : 0;
+        Long tanyo = salesMonthPureEntity.getTanyoMonthPure() != 0 ? salesMonthEntity.getTanyoMonth() - salesMonthPureEntity.getTanyoMonthPure() : 0;
+        Long total = card + simple + beamin + coupang + yogiyo + naver + tanyo;
+        return FeesDTO.builder()
+                .month(salesMonthEntity.getMonth())
+                .cardFee(card)
+                .simpleFee(simple)
+                .baeminFee(beamin)
+                .coupangFee(coupang)
+                .yogiyoFee(yogiyo)
+                .naverFee(naver)
+                .tanyoFee(tanyo)
+                .totalFee(total)
+                .build();
+    }
 }
+

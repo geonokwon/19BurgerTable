@@ -1,4 +1,4 @@
-package com.burgertable.burgertable.dto;
+package com.burgertable.burgertable.dto.sales;
 
 
 import com.burgertable.burgertable.entity.UserEntity;
@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.catalina.User;
 
 import java.sql.Timestamp;
 

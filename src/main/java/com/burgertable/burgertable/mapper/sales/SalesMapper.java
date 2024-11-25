@@ -1,9 +1,13 @@
-package com.burgertable.burgertable.mapper;
+package com.burgertable.burgertable.mapper.sales;
 
-import com.burgertable.burgertable.dto.SalesMonthDataDTO;
-import com.burgertable.burgertable.dto.SalesSaveDataDTO;
+import com.burgertable.burgertable.dto.sales.FeesDTO;
+import com.burgertable.burgertable.dto.sales.SalesMonthDataDTO;
+import com.burgertable.burgertable.dto.sales.SalesMonthPureDTO;
+import com.burgertable.burgertable.dto.sales.SalesSaveDataDTO;
+import com.burgertable.burgertable.entity.FeesEntity;
 import com.burgertable.burgertable.entity.SalesEntity;
 import com.burgertable.burgertable.entity.SalesMonthEntity;
+import com.burgertable.burgertable.entity.SalesMonthPureEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -21,5 +25,11 @@ public interface SalesMapper {
 
     //SalesMonthEntity -> SalesMonthDataDTO 매핑
     SalesMonthDataDTO toSalesMonthDataDTO(SalesMonthEntity salesMonthEntity);
+
+    //SalesMonthPureDTO -> SalesMonthPureEntity 매핑
+    SalesMonthPureEntity toSalesMonthPureEntity(SalesMonthPureDTO SalesMonthPureDTO);
+
+    //FeesDTO -> FeesEntity 매핑
+    FeesEntity toFeesEntity(FeesDTO feesDTO);
 }
 

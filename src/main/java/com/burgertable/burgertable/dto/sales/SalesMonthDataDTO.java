@@ -1,5 +1,8 @@
-package com.burgertable.burgertable.dto;
+package com.burgertable.burgertable.dto.sales;
 
+import com.burgertable.burgertable.entity.FeesEntity;
+import com.burgertable.burgertable.entity.SalesMonthEntity;
+import com.burgertable.burgertable.entity.SalesMonthPureEntity;
 import lombok.*;
 
 @Data
@@ -18,7 +21,9 @@ public class SalesMonthDataDTO {
     private Long coupangMonth;
     private Long yogiyoMonth;
     private Long naverMonth;
-    private Long tangyoMonth;
+    private Long tanyoMonth;
     private Long totalMonth;
+    private SalesMonthPureEntity salesMonthPure;
+    private FeesEntity fees;
 
 }

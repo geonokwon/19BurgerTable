@@ -1,6 +1,6 @@
-package com.burgertable.burgertable.mapper;
+package com.burgertable.burgertable.mapper.sales;
 
-import com.burgertable.burgertable.dto.SalesLogDataDTO;
+import com.burgertable.burgertable.dto.sales.SalesLogDataDTO;
 import com.burgertable.burgertable.entity.SalesEntity;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;

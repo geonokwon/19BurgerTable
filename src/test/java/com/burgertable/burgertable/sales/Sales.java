@@ -1,7 +1,7 @@
 package com.burgertable.burgertable.sales;
 
 import com.burgertable.burgertable.entity.SalesEntity;
-import com.burgertable.burgertable.repository.SalesRepository;
+import com.burgertable.burgertable.repository.sales.SalesRepository;
 import com.burgertable.burgertable.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;

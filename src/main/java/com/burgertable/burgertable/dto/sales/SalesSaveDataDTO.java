@@ -1,4 +1,4 @@
-package com.burgertable.burgertable.dto;
+package com.burgertable.burgertable.dto.sales;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

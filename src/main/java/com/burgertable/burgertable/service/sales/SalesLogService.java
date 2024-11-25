@@ -1,12 +1,12 @@
 package com.burgertable.burgertable.service.sales;
 
-import com.burgertable.burgertable.dto.SalesLogDataDTO;
-import com.burgertable.burgertable.dto.SalesLogPageDTO;
-import com.burgertable.burgertable.dto.SalesSaveDataDTO;
+import com.burgertable.burgertable.dto.sales.SalesLogDataDTO;
+import com.burgertable.burgertable.dto.sales.SalesLogPageDTO;
+import com.burgertable.burgertable.dto.sales.SalesSaveDataDTO;
 import com.burgertable.burgertable.entity.SalesEntity;
-import com.burgertable.burgertable.mapper.SalesLogMapper;
-import com.burgertable.burgertable.mapper.SalesMapper;
-import com.burgertable.burgertable.repository.SalesRepository;
+import com.burgertable.burgertable.mapper.sales.SalesLogMapper;
+import com.burgertable.burgertable.mapper.sales.SalesMapper;
+import com.burgertable.burgertable.repository.sales.SalesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

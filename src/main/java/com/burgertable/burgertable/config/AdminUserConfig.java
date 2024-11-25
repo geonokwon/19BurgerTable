@@ -17,6 +17,7 @@ public class AdminUserConfig {
             if (userRepository.findByUserId("admin") == null) {
                 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
                 String password = encoder.encode("admin123"); // yourAdminPassword 암호화된 비밀번호를 설정
+
                 UserEntity userAdmin = new UserEntity();
                 userAdmin.setName("임민규");
                 userAdmin.setUserId("admin");
@@ -28,3 +29,4 @@ public class AdminUserConfig {
         };
     }
 }
+

@@ -1,4 +1,4 @@
-package com.burgertable.burgertable.repository;
+package com.burgertable.burgertable.repository.sales;
 
 import com.burgertable.burgertable.entity.SalesMonthEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,4 +1,4 @@
-package com.burgertable.burgertable.repository;
+package com.burgertable.burgertable.repository.sales;
 
 import com.burgertable.burgertable.entity.SalesEntity;
 import org.springframework.data.domain.Page;

@@ -1,7 +1,7 @@
 
 $(document).ready(function () {
 
-  $("#sales-input input").on("input", function () {
+  $("#collapseThree input, #sales-input input").on("input", function () {
 
     //현재 input 필드의 값에서 숫자 외의 문자는 제거
     let value = $(this).val().replace(/[^0-9]/g, '');

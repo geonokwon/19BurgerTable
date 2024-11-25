@@ -1,9 +1,9 @@
 package com.burgertable.burgertable.service.sales;
 
-import com.burgertable.burgertable.dto.SalesMonthDataDTO;
+import com.burgertable.burgertable.dto.sales.SalesMonthDataDTO;
 import com.burgertable.burgertable.entity.SalesMonthEntity;
-import com.burgertable.burgertable.mapper.SalesMapper;
-import com.burgertable.burgertable.repository.SalesMonthRepository;
+import com.burgertable.burgertable.mapper.sales.SalesMapper;
+import com.burgertable.burgertable.repository.sales.SalesMonthRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
