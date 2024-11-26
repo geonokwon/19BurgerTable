@@ -57,6 +57,7 @@ public class SalesSaveService {
     //월별 총 매출 저장함수
     private void updateMonthlySummary(Timestamp salesDate) {
         YearMonth month = YearMonth.from(salesDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        log.info("month: {}", month);
         String yearMonthStr = month.toString();
 
         //기존 데이터가 있는지 확인
@@ -68,7 +69,6 @@ public class SalesSaveService {
 
         //해당 월의 매출 합계 계산
         Long cardSum = salesRepository.sumCardSalesByMonth(yearMonthStr);
-        log.info("cardSum: {}", cardSum);
         Long cashSum = salesRepository.sumCashSalesByMonth(yearMonthStr);
         Long simpleSum = salesRepository.sumSimpleSalesByMonth(yearMonthStr);
         Long baeminSum = salesRepository.sumBaeminSalesByMonth(yearMonthStr);

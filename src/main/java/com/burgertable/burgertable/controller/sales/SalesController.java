@@ -29,10 +29,27 @@ public class SalesController {
     //리스트 페이지
     @GetMapping("/salesLog")
     public String salesLog(@RequestParam(defaultValue = "0") int page, // 현재 페이지
+                           @RequestParam(required = false) String yearMonth,
                            Model model) {
-        //월별 매출 표기 처음 페이지로 들어오면 현재 날자 기준으로 월별 데이터 뿌려주기 위함!
-        SalesMonthDataDTO salesMonthDataDTO = salesMonthService.getSalesMonthData(YearMonth.now());
+
+        // 유저가 선택한 날짜가 없으면 현재 날짜 사용
+        YearMonth selectedYearMonth = (yearMonth != null) ? YearMonth.parse(yearMonth) : YearMonth.now();
+
+
+        //월별 매출 표기 처음 페이지로 들어오면 현재 날자 기준으로 월별 데이터 전달
+        SalesMonthDataDTO salesMonthDataDTO = salesMonthService.getSalesMonthData(selectedYearMonth);
+        if (salesMonthDataDTO == null) {
+            selectedYearMonth = YearMonth.now();
+            salesMonthDataDTO = salesMonthService.getSalesMonthData(selectedYearMonth);
+        }
+        model.addAttribute("selectedYearMonth", selectedYearMonth.toString()); // 선택된 값을 뷰로 전달
         model.addAttribute("salesMonthDataDTO", salesMonthDataDTO);
+
+        //월 순수익 표기
+        Long monthPureTotal = salesMonthDataDTO.getFees() != null
+                ? salesMonthDataDTO.getTotalMonth() - salesMonthDataDTO.getFees().getTotalFee()
+                : salesMonthDataDTO.getTotalMonth(); // fees가 null일 경우 totalMonth만 사용
+        model.addAttribute("monthPureTotal", monthPureTotal);
 
 
         //페이징처리 및 데이터 불러오기

@@ -1,6 +1,6 @@
 $(document).ready(function () {
   $("#collapseThree input").each(function (){
-    if($(this).val().trim() !== " "){
+    if($(this).val() !== " "){
       $(this).prop("readOnly", true);
     }
     else $(this).prop("readOnly", false);

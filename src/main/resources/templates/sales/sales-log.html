@@ -24,6 +24,11 @@
         <link th:href="@{/css/style.css}" rel="stylesheet" />
         <link th:href="@{/css/sales/sales.css}" rel="stylesheet">
 
+
+        <!-- Bootstrap Datepicker CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+        <link th:href="@{/css/sales/datepicker.css}" rel="stylesheet" />
+
     </head>
 
     <body>
@@ -42,38 +47,47 @@
                     <div class="card-header">
                         <h4 class="p-0 m-0"><span th:text="${salesMonthDataDTO.month} ?: '??'"></span> 매출</h4>
                     </div>
+
                     <div class="card-body">
-                        <!-- 월 매출 -->
-                        <div class="card-title fs-5 p-0">
-                            <div class="col-12 col-lg-3">
-                                <label class="my-2" for="salesMonth">월 매출</label>
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">₩</span>
-                                    <input type="text" id="salesMonth" name="cardSales_month" class="form-control text-end"
-                                           th:value="${#numbers.formatInteger(salesMonthDataDTO.totalMonth, 0, 'COMMA')} ?: '??' " readonly>
-                                    <span class="input-group-text">원</span>
-                                </div>
+                        <div class="row align-items-start justify-content-between flex-column flex-lg-row">
+                            <!-- 모바일에서 달력을 먼저 배치 -->
+                            <div id="datepickerContainer" class="col-12 col-lg-4 order-1 order-lg-2 mb-3 mb-lg-0" th:attr="data-year-month=${selectedYearMonth}">
+                                <div id="datepicker"></div> <!-- 실제 달력 요소 -->
                             </div>
-                        </div>
-                        <!-- 월 수수료(소셜) -->
-                        <div class="card-title fs-5 p-0">
-                            <div class="card-title fs-5 p-0 mt-3">
-                                <div class="col-12 col-lg-3">
-                                    <label class="my-2" for="feeMonth">월 수수료(소셜)</label>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text">₩</span>
-                                        <input type="text" id="feeMonth" name="cardSales_month" class="form-control text-end"
-                                               th:value="${salesMonthDataDTO.fees != null ? #numbers.formatInteger(salesMonthDataDTO.fees.getTotalFee(), 0, 'COMMA') : '0'}" readonly>
-                                        <span class="input-group-text">원</span>
+
+                            <!-- 월 매출 및 수수료 -->
+                            <div class="col-12 col-lg-6 order-2 order-lg-1">
+                                <div class="card-title fs-5 p-0">
+                                    <!-- 월 매출 -->
+                                    <div class="col-12 col-lg-7">
+                                        <label class="my-2" for="salesMonth">월 매출</label>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">₩</span>
+                                            <input type="text" id="salesMonth" name="cardSales_month" class="form-control text-end"
+                                                   th:value="${#numbers.formatInteger(salesMonthDataDTO.totalMonth, 0, 'COMMA')} ?: '??' " readonly>
+                                            <span class="input-group-text">원</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 월 수수료(소셜) -->
+                                <div class="card-title fs-5 p-0 mt-3">
+                                    <div class="col-12 col-lg-7">
+                                        <label class="my-2" for="feeMonth">월 수수료(소셜)</label>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">₩</span>
+                                            <input type="text" id="feeMonth" name="cardSales_month" class="form-control text-end"
+                                                   th:value="${salesMonthDataDTO.fees != null ? #numbers.formatInteger(salesMonthDataDTO.fees.getTotalFee(), 0, 'COMMA') : '0'}" readonly>
+                                            <span class="input-group-text">원</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
+
                         <div class="card-title fs-4 p-0 mt-4 mb-2">
-                            월 순수익 ₩ <span id="salesMonthPure" class="fs-4" th:text="${salesMonthDataDTO.fees != null &&
-                            salesMonthDataDTO != null
-                            ? #numbers.formatInteger(salesMonthDataDTO.getTotalMonth() - salesMonthDataDTO.fees.getTotalFee(), 0, 'COMMA') : 0}"></span> 원
+                            월 순수익 ₩ <span id="salesMonthPure" class="fs-4" th:text="${monthPureTotal != null ? #numbers.formatInteger(monthPureTotal, 0, 'COMMA') : '0'}"></span> 원
                         </div>
 
                         <div class="container p-0 mb-4">
@@ -295,7 +309,7 @@
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text">₩</span>
                                                     <input type="text" id="cardMonthPure" name="cardMonthPure" class="form-control text-end"
-                                                           th:value="${salesMonthDataDTO.salesMonthPure != null ? #numbers.formatInteger(salesMonthDataDTO.salesMonthPure.getCardMonthPure(), 0, 'COMMA') : '0'}">
+                                                           th:value="${salesMonthDataDTO.salesMonthPure != null ? #numbers.formatInteger(salesMonthDataDTO.salesMonthPure.getCardMonthPure(), 0, 'COMMA') : ' '}">
                                                     <span class="input-group-text">원</span>
                                                 </div>
                                             </div>
@@ -306,7 +320,7 @@
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text">₩</span>
                                                     <input type="text" id="simpleMonthPure" name="simpleMonthPure" class="form-control text-end"
-                                                           th:value="${salesMonthDataDTO.salesMonthPure != null ? #numbers.formatInteger(salesMonthDataDTO.salesMonthPure.getSimpleMonthPure(), 0, 'COMMA') : '0'}">
+                                                           th:value="${salesMonthDataDTO.salesMonthPure != null ? #numbers.formatInteger(salesMonthDataDTO.salesMonthPure.getSimpleMonthPure(), 0, 'COMMA') : ' '}">
                                                     <span class="input-group-text">원</span>
                                                 </div>
                                             </div>
@@ -317,7 +331,7 @@
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text">₩</span>
                                                     <input type="text" id="baeminMonthPure" name="baeminMonthPure" class="form-control text-end"
-                                                           th:value="${salesMonthDataDTO.salesMonthPure != null ? #numbers.formatInteger(salesMonthDataDTO.salesMonthPure.getBaeminMonthPure(), 0, 'COMMA') : '0'}">
+                                                           th:value="${salesMonthDataDTO.salesMonthPure != null ? #numbers.formatInteger(salesMonthDataDTO.salesMonthPure.getBaeminMonthPure(), 0, 'COMMA') : ' '}">
                                                     <span class="input-group-text">원</span>
                                                 </div>
                                             </div>
@@ -328,7 +342,7 @@
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text">₩</span>
                                                     <input type="text" id="coupangMonthPure" name="coupangMonthPure" class="form-control text-end"
-                                                           th:value="${salesMonthDataDTO.salesMonthPure != null ? #numbers.formatInteger(salesMonthDataDTO.salesMonthPure.getCoupangMonthPure(), 0, 'COMMA') : '0'}">
+                                                           th:value="${salesMonthDataDTO.salesMonthPure != null ? #numbers.formatInteger(salesMonthDataDTO.salesMonthPure.getCoupangMonthPure(), 0, 'COMMA') : ' '}">
                                                     <span class="input-group-text">원</span>
                                                 </div>
                                             </div>
@@ -339,7 +353,7 @@
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text">₩</span>
                                                     <input type="text" id="yogiyoMonthPure" name="yogiyoMonthPure" class="form-control text-end"
-                                                           th:value="${salesMonthDataDTO.salesMonthPure != null ? #numbers.formatInteger(salesMonthDataDTO.salesMonthPure.getYogiyoMonthPure(), 0, 'COMMA') : '0'}">
+                                                           th:value="${salesMonthDataDTO.salesMonthPure != null ? #numbers.formatInteger(salesMonthDataDTO.salesMonthPure.getYogiyoMonthPure(), 0, 'COMMA') : ' '}">
                                                     <span class="input-group-text">원</span>
                                                 </div>
                                             </div>
@@ -350,7 +364,7 @@
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text">₩</span>
                                                     <input type="text" id="naverMonthPure" name="naverMonthPure" class="form-control text-end"
-                                                           th:value="${salesMonthDataDTO.salesMonthPure != null ? #numbers.formatInteger(salesMonthDataDTO.salesMonthPure.getNaverMonthPure(), 0, 'COMMA') : '0'}">
+                                                           th:value="${salesMonthDataDTO.salesMonthPure != null ? #numbers.formatInteger(salesMonthDataDTO.salesMonthPure.getNaverMonthPure(), 0, 'COMMA') : ' '}">
                                                     <span class="input-group-text">원</span>
                                                 </div>
                                             </div>
@@ -361,7 +375,7 @@
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text">₩</span>
                                                     <input type="text" id="tanyoMonthPure" name="tanyoMonthPure" class="form-control text-end"
-                                                           th:value="${salesMonthDataDTO.salesMonthPure != null ? #numbers.formatInteger(salesMonthDataDTO.salesMonthPure.getTanyoMonthPure(), 0, 'COMMA') : '0'}">
+                                                           th:value="${salesMonthDataDTO.salesMonthPure != null ? #numbers.formatInteger(salesMonthDataDTO.salesMonthPure.getTanyoMonthPure(), 0, 'COMMA') : ' '}">
                                                     <span class="input-group-text">원</span>
                                                 </div>
                                             </div>
@@ -593,6 +607,13 @@
 
         <!-- jQuery -->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+        <!-- Bootstrap Datepicker JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+        <!-- 한국어 로케일 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"></script>
+        <script th:src="@{/js/sales/datepicker-main.js}"></script>
 
         <!-- Vendor JS Files -->
         <script th:src="@{/js/apexcharts/apexcharts.min.js}"></script>
