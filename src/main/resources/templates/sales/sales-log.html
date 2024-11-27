@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
     <head>
         <meta charset="utf-8" />
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -452,19 +452,19 @@
                         <ul class="pagination mb-0">
                             <!-- 이전 10개 묶음으로 이동 -->
                             <li class="page-item" th:if="${salesLogPageDTO.currentPage >= 10}">
-                                <a class="page-link" th:href="@{/sales/salesLog(page=${T(java.lang.Math).max(0, (salesLogPageDTO.currentPage / 10 - 1) * 10)})}">&lt;</a>
+                                <a class="page-link" th:href="@{/sales/salesLog(page=${T(java.lang.Math).max(0, (salesLogPageDTO.currentPage / 10 - 1) * 10)}, yearMonth=${selectedYearMonth})}">&lt;</a>
                             </li>
 
                             <!-- 현재 페이지 집합 (10개씩 고정) -->
                             <li class="page-item"
                                 th:each="i : ${#numbers.sequence((salesLogPageDTO.currentPage / 10) * 10, T(java.lang.Math).min((salesLogPageDTO.currentPage / 10 + 1) * 10 - 1, salesLogPageDTO.totalPages - 1))}"
                                 th:classappend="${i == salesLogPageDTO.currentPage} ? 'active'">
-                                <a class="page-link" th:href="@{/sales/salesLog(page=${i})}" th:text="${i + 1}">1</a>
+                                <a class="page-link" th:href="@{/sales/salesLog(page=${i}, yearMonth=${selectedYearMonth})}" th:text="${i + 1}">1</a>
                             </li>
 
                             <!-- 다음 10개 묶음으로 이동 -->
                             <li class="page-item" th:if="${(salesLogPageDTO.currentPage / 10 + 1) * 10 < salesLogPageDTO.totalPages}">
-                                <a class="page-link" th:href="@{/sales/salesLog(page=${(salesLogPageDTO.currentPage / 10 + 1) * 10})}">&gt;</a>
+                                <a class="page-link" th:href="@{/sales/salesLog(page=${(salesLogPageDTO.currentPage / 10 + 1) * 10}, yearMonth=${selectedYearMonth})}">&gt;</a>
                             </li>
                         </ul>
                     </div>
@@ -482,111 +482,115 @@
                             <p id="modal-content">
                                 <div class="container">
                                     <div class="container row">
-                                        <div id="sales-input" class="row">
+                                        <div id="sales-input" class="row modalSalesData">
 
-                                                <!-- 카드매출 -->
-                                                <div class="col-12 col-lg-6">
-                                                    <label class="my-2" for="cardSales">카드매출</label>
-                                                    <div class="input-group mb-3">
-                                                        <span class="input-group-text">₩</span>
-                                                        <input type="text" id="cardSales" name="cardSales" class="form-control text-end" readonly>
-                                                        <span class="input-group-text">원</span>
-                                                    </div>
-                                                </div>
-
-                                                <!-- 현금매출 -->
-                                                <div class="col-12 col-lg-6">
-                                                    <label class="my-2" for="cashSales">현금매출</label>
-                                                    <div class="input-group mb-3">
-                                                        <span class="input-group-text">₩</span>
-                                                        <input type="text" id="cashSales" name="cashSales" class="form-control text-end" readonly>
-                                                        <span class="input-group-text">원</span>
-                                                    </div>
-                                                </div>
-
-                                                <!-- 간편결제 -->
-                                                <div class="col-12 col-lg-6">
-                                                    <label class="my-2" for="simpleSales">간편결제</label>
-                                                    <div class="input-group mb-3">
-                                                        <span class="input-group-text">₩</span>
-                                                        <input type="text" id="simpleSales" name="simpleSales" class="form-control text-end" readonly>
-                                                        <span class="input-group-text">원</span>
-                                                    </div>
-                                                </div>
-
-                                                <!-- 배달의 민족 -->
-                                                <div class="col-12 col-lg-6">
-                                                    <label class="my-2" for="baeminSales">배달의 민족</label>
-                                                    <div class="input-group mb-3">
-                                                        <span class="input-group-text">₩</span>
-                                                        <input type="text" id="baeminSales" name="baeminSales" class="form-control text-end" readonly>
-                                                        <span class="input-group-text">원</span>
-                                                    </div>
-                                                </div>
-
-                                                <!-- 쿠팡이츠 -->
-                                                <div class="col-12 col-lg-6">
-                                                    <label class="my-2" for="coupangSales">쿠팡이츠</label>
-                                                    <div class="input-group mb-3">
-                                                        <span class="input-group-text">₩</span>
-                                                        <input type="text" id="coupangSales" name="coupangSales" class="form-control text-end" readonly>
-                                                        <span class="input-group-text">원</span>
-                                                    </div>
-                                                </div>
-
-                                                <!-- 요기요 -->
-                                                <div class="col-12 col-lg-6">
-                                                    <label class="my-2" for="yogiyoSales">요기요</label>
-                                                    <div class="input-group mb-3">
-                                                        <span class="input-group-text">₩</span>
-                                                        <input type="text" id="yogiyoSales" name="yogiyoSales" class="form-control text-end" readonly>
-                                                        <span class="input-group-text">원</span>
-                                                    </div>
-                                                </div>
-
-                                                <!-- 네이버 -->
-                                                <div class="col-12 col-lg-6">
-                                                    <label class="my-2" for="naverSales">네이버</label>
-                                                    <div class="input-group mb-3">
-                                                        <span class="input-group-text">₩</span>
-                                                        <input type="text" id="naverSales" name="naverSales" class="form-control text-end" readonly>
-                                                        <span class="input-group-text">원</span>
-                                                    </div>
-                                                </div>
-
-                                                <!-- 땡겨요 -->
-                                                <div class="col-12 col-lg-6">
-                                                    <label class="my-2" for="tanyoSales">땡겨요</label>
-                                                    <div class="input-group mb-3">
-                                                        <span class="input-group-text">₩</span>
-                                                        <input type="text" id="tanyoSales" name="tanyoSales" class="form-control text-end" readonly>
-                                                        <span class="input-group-text">원</span>
-                                                    </div>
-                                                </div>
-
-                                                <div class="container">
-                                                    <hr>
-                                                </div>
-
-                                                <!-- 총 매출 -->
-                                                <p class="my-2 fs-5 fw-bold mb-2 ms-1">합계</p>
-                                                <div class="d-flex align-items-center ms-2">
-                                                    <img th:src="@{/images/svg/total-money.svg}" width="20" height="20" alt="totalMoney" class="me-2">
-                                                    <span class="fs-5 fw-bold me-2">₩</span>
-                                                    <span id="totalSales" class="fs-5 fw-bold">0</span>
-                                                    <span class="fs-5 fw-bold ms-2">원</span>
-                                                </div>
-
-                                                <div class="container">
-                                                    <hr>
+                                            <!-- 카드매출 -->
+                                            <div class="col-12 col-lg-6">
+                                                <label class="my-2" for="cardSales">카드매출</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₩</span>
+                                                    <input type="text" id="cardSales" name="cardSales" class="form-control text-end" readonly>
+                                                    <span class="input-group-text">원</span>
                                                 </div>
                                             </div>
+
+                                            <!-- 현금매출 -->
+                                            <div class="col-12 col-lg-6">
+                                                <label class="my-2" for="cashSales">현금매출</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₩</span>
+                                                    <input type="text" id="cashSales" name="cashSales" class="form-control text-end" readonly>
+                                                    <span class="input-group-text">원</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- 간편결제 -->
+                                            <div class="col-12 col-lg-6">
+                                                <label class="my-2" for="simpleSales">간편결제</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₩</span>
+                                                    <input type="text" id="simpleSales" name="simpleSales" class="form-control text-end" readonly>
+                                                    <span class="input-group-text">원</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- 배달의 민족 -->
+                                            <div class="col-12 col-lg-6">
+                                                <label class="my-2" for="baeminSales">배달의 민족</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₩</span>
+                                                    <input type="text" id="baeminSales" name="baeminSales" class="form-control text-end" readonly>
+                                                    <span class="input-group-text">원</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- 쿠팡이츠 -->
+                                            <div class="col-12 col-lg-6">
+                                                <label class="my-2" for="coupangSales">쿠팡이츠</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₩</span>
+                                                    <input type="text" id="coupangSales" name="coupangSales" class="form-control text-end" readonly>
+                                                    <span class="input-group-text">원</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- 요기요 -->
+                                            <div class="col-12 col-lg-6">
+                                                <label class="my-2" for="yogiyoSales">요기요</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₩</span>
+                                                    <input type="text" id="yogiyoSales" name="yogiyoSales" class="form-control text-end" readonly>
+                                                    <span class="input-group-text">원</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- 네이버 -->
+                                            <div class="col-12 col-lg-6">
+                                                <label class="my-2" for="naverSales">네이버</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₩</span>
+                                                    <input type="text" id="naverSales" name="naverSales" class="form-control text-end" readonly>
+                                                    <span class="input-group-text">원</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- 땡겨요 -->
+                                            <div class="col-12 col-lg-6">
+                                                <label class="my-2" for="tanyoSales">땡겨요</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">₩</span>
+                                                    <input type="text" id="tanyoSales" name="tanyoSales" class="form-control text-end" readonly>
+                                                    <span class="input-group-text">원</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="container">
+                                                <hr>
+                                            </div>
+
+                                            <!-- 총 매출 -->
+                                            <p class="my-2 fs-5 fw-bold mb-2 ms-1">합계</p>
+                                            <div class="d-flex align-items-center ms-2">
+                                                <img th:src="@{/images/svg/total-money.svg}" width="20" height="20" alt="totalMoney" class="me-2">
+                                                <span class="fs-5 fw-bold me-2">₩</span>
+                                                <span id="totalSales" class="fs-5 fw-bold">0</span>
+                                                <span class="fs-5 fw-bold ms-2">원</span>
+                                            </div>
+
+                                            <div class="container">
+                                                <hr>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </p> <!-- 데이터를 여기에 표시 -->
                         </div>
                         <div class="modal-footer">
-                            <a type="button" class="btn btn-primary" href="/sales/salesUpdate?pageNum=">수정</a>
+                            <div sec:authorize="isAuthenticated()">
+                                <button type="button" class="btn btn-danger" onclick="setSalesLogDelete()">삭제</button>
+                                <button type="button" class="btn btn-primary" onclick="setSalesLogUpdate()">수정</button>
+                            </div>
+<!--                            <a type="button" class="btn btn-primary" href="/sales/salesUpdate?pageNum=">수정</a>-->
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                         </div>
                     </div>
@@ -625,6 +629,8 @@
         <script th:src="@{/js/sales/modalSalesLog.js}"></script>
         <script th:src="@{/js/sales/total-money.js}"></script>
         <script th:src="@{/js/sales/saveMonthPure.js}"></script>
+        <script th:src="@{/js/sales/salesLogDelete.js}"></script>
+        <script th:src="@{/js/sales/salesLogUpdate.js}"></script>
 
     </body>
 </html>

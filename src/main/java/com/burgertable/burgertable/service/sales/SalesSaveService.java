@@ -22,6 +22,7 @@ import java.sql.Timestamp;
 import java.time.YearMonth;
 import java.time.ZoneId;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @Slf4j
@@ -55,7 +56,7 @@ public class SalesSaveService {
     }
 
     //월별 총 매출 저장함수
-    private void updateMonthlySummary(Timestamp salesDate) {
+    public void updateMonthlySummary(Timestamp salesDate) {
         YearMonth month = YearMonth.from(salesDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         log.info("month: {}", month);
         String yearMonthStr = month.toString();

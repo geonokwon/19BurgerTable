@@ -15,6 +15,12 @@ function getSalesLog(id) {
     data: JSON.stringify(pk),
     success: (res) => {
       console.log("Response:", res);
+      const date = new Date(res.result.salesDate);
+      //년-월-일 포맷팅
+      const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+
+      $("#salesModal .modal-title").text("매출 상세 기록 " + " (" + formattedDate + ")")
+      $(".modalSalesData").attr("data-pk", pk.toString());
       $("#cardSales").val(formatCurrency(res.result.cardSales));
       $("#cashSales").val(formatCurrency(res.result.cashSales));
       $("#simpleSales").val(formatCurrency(res.result.simpleSales));
@@ -24,9 +30,6 @@ function getSalesLog(id) {
       $("#naverSales").val(formatCurrency(res.result.naverSales));
       $("#tanyoSales").val(formatCurrency(res.result.tanyoSales));
       $("#totalSales").text(formatCurrency(res.result.totalSales));
-
-      //수정버튼!
-      //a태그로 href 로 주소 추가해서 보내기!
 
       //모달오픈 (나중에 API 반환 성공시)
       $("#salesModal").show();

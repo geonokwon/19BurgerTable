@@ -50,7 +50,7 @@
               <label class="my-2" for="cardSales">카드매출</label>
               <div class="input-group mb-3">
                 <span class="input-group-text">₩</span>
-                <input type="text" id="cardSales" name="cardSales" class="form-control" th:value="${}">
+                <input type="text" id="cardSales" name="cardSales" class="form-control" th:value="${#numbers.formatInteger(salesSaveDataDTO.cardSales, 0, 'COMMA')}">
                 <span class="input-group-text">원</span>
               </div>
             </div>
@@ -60,7 +60,7 @@
               <label class="my-2" for="cashSales">현금매출</label>
               <div class="input-group mb-3">
                 <span class="input-group-text">₩</span>
-                <input type="text" id="cashSales" name="cashSales" class="form-control">
+                <input type="text" id="cashSales" name="cashSales" class="form-control" th:value="${#numbers.formatInteger(salesSaveDataDTO.cashSales, 0, 'COMMA')}">
                 <span class="input-group-text">원</span>
               </div>
             </div>
@@ -70,7 +70,7 @@
               <label class="my-2" for="simpleSales">간편결제</label>
               <div class="input-group mb-3">
                 <span class="input-group-text">₩</span>
-                <input type="text" id="simpleSales" name="simpleSales" class="form-control">
+                <input type="text" id="simpleSales" name="simpleSales" class="form-control" th:value="${#numbers.formatInteger(salesSaveDataDTO.simpleSales, 0, 'COMMA')}">
                 <span class="input-group-text">원</span>
               </div>
             </div>
@@ -80,7 +80,7 @@
               <label class="my-2" for="baeminSales">배달의 민족</label>
               <div class="input-group mb-3">
                 <span class="input-group-text">₩</span>
-                <input type="text" id="baeminSales" name="baeminSales" class="form-control">
+                <input type="text" id="baeminSales" name="baeminSales" class="form-control" th:value="${#numbers.formatInteger(salesSaveDataDTO.baeminSales, 0, 'COMMA')}">
                 <span class="input-group-text">원</span>
               </div>
             </div>
@@ -90,7 +90,7 @@
               <label class="my-2" for="coupangSales">쿠팡이츠</label>
               <div class="input-group mb-3">
                 <span class="input-group-text">₩</span>
-                <input type="text" id="coupangSales" name="coupangSales" class="form-control">
+                <input type="text" id="coupangSales" name="coupangSales" class="form-control" th:value="${#numbers.formatInteger(salesSaveDataDTO.coupangSales, 0, 'COMMA')}">
                 <span class="input-group-text">원</span>
               </div>
             </div>
@@ -100,7 +100,7 @@
               <label class="my-2" for="yogiyoSales">요기요</label>
               <div class="input-group mb-3">
                 <span class="input-group-text">₩</span>
-                <input type="text" id="yogiyoSales" name="yogiyoSales" class="form-control">
+                <input type="text" id="yogiyoSales" name="yogiyoSales" class="form-control" th:value="${#numbers.formatInteger(salesSaveDataDTO.yogiyoSales, 0, 'COMMA')}">
                 <span class="input-group-text">원</span>
               </div>
             </div>
@@ -110,7 +110,7 @@
               <label class="my-2" for="naverSales">네이버</label>
               <div class="input-group mb-3">
                 <span class="input-group-text">₩</span>
-                <input type="text" id="naverSales" name="naverSales" class="form-control">
+                <input type="text" id="naverSales" name="naverSales" class="form-control" th:value="${#numbers.formatInteger(salesSaveDataDTO.naverSales, 0, 'COMMA')}">
                 <span class="input-group-text">원</span>
               </div>
             </div>
@@ -120,7 +120,7 @@
               <label class="my-2" for="tanyoSales">땡겨요</label>
               <div class="input-group mb-3">
                 <span class="input-group-text">₩</span>
-                <input type="text" id="tanyoSales" name="tanyoSales" class="form-control">
+                <input type="text" id="tanyoSales" name="tanyoSales" class="form-control" th:value="${#numbers.formatInteger(salesSaveDataDTO.tanyoSales, 0, 'COMMA')}">
                 <span class="input-group-text">원</span>
               </div>
             </div>
@@ -134,7 +134,7 @@
             <div class="d-flex align-items-center ms-2">
               <img th:src="@{/images/svg/total-money.svg}" width="20" height="20" alt="totalMoney" class="me-2">
               <span class="fs-5 fw-bold me-2">₩</span>
-              <span id="totalSales" class="fs-5 fw-bold">0</span>
+              <span id="totalSales" class="fs-5 fw-bold" th:text="${#numbers.formatInteger(salesSaveDataDTO.totalSales, 0, 'COMMA')}">0</span>
               <span class="fs-5 fw-bold ms-2">원</span>
             </div>
 
@@ -151,7 +151,7 @@
         <div id="datepickerContainer" class="d-flex justify-content-center">
           <div id="datepicker"></div> <!-- 실제 달력 요소 -->
         </div>
-        <input type="text" id="salesDate" class="form-control mt-2" placeholder="선택된 날짜" readonly>
+        <input type="text" id="salesDate" class="form-control mt-2" placeholder="선택된 날짜" th:value="${salesSaveDataDTO.salesDate}" readonly>
 
         <div class="col-12 col-md-12 mt-2">
           <label class="my-2" for="userName">작성자</label>
