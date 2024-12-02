@@ -21,6 +21,9 @@
     <td><a href="http://211.57.3.140:8080/">docker 이용해 서버(개인집 인터넷) 연결</a></td>
   </tr>
 </table>
+<h4>관리자</h4>
+<h5>&nbsp;&nbsp;&nbsp;&nbsp; - 아이디 : admin </h5>
+<h5>&nbsp;&nbsp;&nbsp;&nbsp; - 비밀번호  : admin123 </h5>
 
 <hr>
 
