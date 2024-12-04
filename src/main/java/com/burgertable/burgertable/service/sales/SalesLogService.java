@@ -8,6 +8,7 @@ import com.burgertable.burgertable.mapper.sales.SalesLogMapper;
 import com.burgertable.burgertable.mapper.sales.SalesMapper;
 import com.burgertable.burgertable.repository.sales.SalesRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,10 +18,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static org.hibernate.query.sqm.tree.SqmNode.log;
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class SalesLogService {
-
     private final SalesRepository salesRepository;
 
     //매출 리스트 화면 뿌려줄 PageList
@@ -48,7 +51,8 @@ public class SalesLogService {
             SalesEntity salesEntity = result.get();
             //매핑
             SalesSaveDataDTO salesSaveDataDTO = SalesMapper.INSTANCE.toSalesSaveDataDTO(salesEntity);
-            salesSaveDataDTO.setUserName(result.get().getUser().getName());
+            log.info("salesSaveDataDTO {}", salesSaveDataDTO.toString());
+            salesSaveDataDTO.setUserName(salesEntity.getUser().getName());
             return Map.of("response", "success",
                     "result", salesSaveDataDTO);
         }

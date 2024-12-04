@@ -45,7 +45,7 @@
 
                 <div class="card" th:if="${salesMonthDataDTO != null}">
                     <div class="card-header">
-                        <h4 class="p-0 m-0"><span th:text="${salesMonthDataDTO.month} ?: '??'"></span> 매출</h4>
+                        <h4 class="p-0 m-0"><span th:text="${selectedYearMonth} ?: '??'"></span> 매출</h4>
                     </div>
 
                     <div class="card-body">
@@ -64,7 +64,7 @@
                                         <div class="input-group mb-3">
                                             <span class="input-group-text">₩</span>
                                             <input type="text" id="salesMonth" name="cardSales_month" class="form-control text-end"
-                                                   th:value="${#numbers.formatInteger(salesMonthDataDTO.totalMonth, 0, 'COMMA')} ?: '??' " readonly>
+                                                   th:value="${#numbers.formatInteger(salesMonthDataDTO.totalMonth, 0, 'COMMA')} ?: '0' " readonly>
                                             <span class="input-group-text">원</span>
                                         </div>
                                     </div>
@@ -113,7 +113,7 @@
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text">₩</span>
                                                     <input type="text" id="cardMonth" name="cardSales_month" class="form-control text-end"
-                                                           th:value="${#numbers.formatInteger(salesMonthDataDTO.cardMonth, 0, 'COMMA')} ?: '??' " readonly>
+                                                           th:value="${#numbers.formatInteger(salesMonthDataDTO.cardMonth, 0, 'COMMA')} ?: '0' " readonly>
                                                     <span class="input-group-text">원</span>
                                                 </div>
                                             </div>
@@ -124,7 +124,7 @@
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text">₩</span>
                                                     <input type="text" id="cashMonth" name="cardSales_month" class="form-control text-end"
-                                                           th:value="${#numbers.formatInteger(salesMonthDataDTO.cashMonth, 0, 'COMMA')} ?: '??' " readonly>
+                                                           th:value="${#numbers.formatInteger(salesMonthDataDTO.cashMonth, 0, 'COMMA')} ?: '0' " readonly>
                                                     <span class="input-group-text">원</span>
                                                 </div>
                                             </div>
@@ -135,7 +135,7 @@
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text">₩</span>
                                                     <input type="text" id="simpleMonth" name="simpleSales" class="form-control text-end"
-                                                           th:value="${#numbers.formatInteger(salesMonthDataDTO.simpleMonth, 0, 'COMMA')} ?: '??' " readonly>
+                                                           th:value="${#numbers.formatInteger(salesMonthDataDTO.simpleMonth, 0, 'COMMA')} ?: '0' " readonly>
                                                     <span class="input-group-text">원</span>
                                                 </div>
                                             </div>
@@ -146,7 +146,7 @@
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text">₩</span>
                                                     <input type="text" id="baeminMonth" name="baeminSales" class="form-control text-end"
-                                                           th:value="${#numbers.formatInteger(salesMonthDataDTO.baeminMonth, 0, 'COMMA')} ?: '??' " readonly>
+                                                           th:value="${#numbers.formatInteger(salesMonthDataDTO.baeminMonth, 0, 'COMMA')} ?: '0' " readonly>
                                                     <span class="input-group-text">원</span>
                                                 </div>
                                             </div>
@@ -157,7 +157,7 @@
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text">₩</span>
                                                     <input type="text" id="coupangMonth" name="coupangSales" class="form-control text-end"
-                                                           th:value="${#numbers.formatInteger(salesMonthDataDTO.coupangMonth, 0, 'COMMA')} ?: '??' " readonly>
+                                                           th:value="${#numbers.formatInteger(salesMonthDataDTO.coupangMonth, 0, 'COMMA')} ?: '0' " readonly>
                                                     <span class="input-group-text">원</span>
                                                 </div>
                                             </div>
@@ -168,7 +168,7 @@
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text">₩</span>
                                                     <input type="text" id="yogiyoMonth" name="yogiyoSales" class="form-control text-end"
-                                                           th:value="${#numbers.formatInteger(salesMonthDataDTO.yogiyoMonth, 0, 'COMMA')} ?: '??' " readonly>
+                                                           th:value="${#numbers.formatInteger(salesMonthDataDTO.yogiyoMonth, 0, 'COMMA')} ?: '0' " readonly>
                                                     <span class="input-group-text">원</span>
                                                 </div>
                                             </div>
@@ -179,7 +179,7 @@
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text">₩</span>
                                                     <input type="text" id="naverMonth" name="naverSales" class="form-control text-end"
-                                                           th:value="${#numbers.formatInteger(salesMonthDataDTO.naverMonth, 0, 'COMMA')} ?: '??' " readonly>
+                                                           th:value="${#numbers.formatInteger(salesMonthDataDTO.naverMonth, 0, 'COMMA')} ?: '0' " readonly>
                                                     <span class="input-group-text">원</span>
                                                 </div>
                                             </div>
@@ -190,7 +190,7 @@
                                                 <div class="input-group mb-3">
                                                     <span class="input-group-text">₩</span>
                                                     <input type="text" id="tanyoMonth" name="tanyoSales" class="form-control text-end"
-                                                           th:value="${#numbers.formatInteger(salesMonthDataDTO.tanyoMonth, 0, 'COMMA')} ?: '??' " readonly>
+                                                           th:value="${#numbers.formatInteger(salesMonthDataDTO.tanyoMonth, 0, 'COMMA')} ?: '0' " readonly>
                                                     <span class="input-group-text">원</span>
                                                 </div>
                                             </div>

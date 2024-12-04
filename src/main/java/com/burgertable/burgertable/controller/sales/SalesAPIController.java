@@ -6,6 +6,7 @@ import com.burgertable.burgertable.dto.sales.SalesSaveDataDTO;
 import com.burgertable.burgertable.service.sales.SalesDeleteService;
 import com.burgertable.burgertable.service.sales.SalesLogService;
 import com.burgertable.burgertable.service.sales.SalesSaveService;
+import com.burgertable.burgertable.service.sales.SalesUpdateService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ public class SalesAPIController {
     private final SalesSaveService salesSaveService;
     private final SalesLogService salesLogService;
     private final SalesDeleteService salesDeleteService;
+    private final SalesUpdateService salesUpdateService;
 
     @PostMapping("/save")
     @ResponseBody
@@ -50,6 +52,18 @@ public class SalesAPIController {
         }
         return ResponseEntity.ok().body(feesDTO);
     }
+
+    @PostMapping("/update")
+    @ResponseBody
+    public ResponseEntity<?> update(@RequestBody SalesSaveDataDTO salesSaveDataDTO){
+        log.info("update data: {}", salesSaveDataDTO);
+        //매출기록 수정
+        if (salesUpdateService.salesDataUpdate(salesSaveDataDTO)){
+            return ResponseEntity.ok("수정 완료");
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("수정 오류");
+    }
+
 
     //글삭제 처리 (isDeleted true)
     @PostMapping("/salesDelete")
