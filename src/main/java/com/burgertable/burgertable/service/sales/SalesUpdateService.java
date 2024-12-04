@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.YearMonth;
 import java.time.ZoneId;
@@ -32,23 +31,32 @@ public class SalesUpdateService {
             return false;
         }
 
-        // 기존 날짜와 새로운 날짜 추출
-        Timestamp originalSalesDate = salesEntity.getSalesDate(); // 기존 저장된 날짜
-        Timestamp newSalesDate = salesSaveDataDTO.getSalesDate(); // 수정된 새로운 날짜
+        //기존 날짜와 새로운 날짜 추출
+        Timestamp originalSalesDate = salesEntity.getSalesDate();
+        Timestamp newSalesDate = salesSaveDataDTO.getSalesDate();
 
-        // 날짜가 같은 달인지 확인
+        //날짜가 같은 달인지 확인
         YearMonth originalMonth = YearMonth.from(originalSalesDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         YearMonth newMonth = YearMonth.from(newSalesDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 
-        // 매출 데이터 업데이트
+        //매출 데이터 업데이트
         SalesEntity updateSalesEntity = SalesMapper.INSTANCE.toSalesEntity(salesSaveDataDTO);
-        updateSalesEntity.setUser(salesEntity.getUser()); // 기존 유저 정보 유지
-        updateSalesEntity.setSocialSales(salesSaveService.socialTotal(salesSaveDataDTO)); // 소셜 매출 계산
+        updateSalesEntity.setUser(salesEntity.getUser());
+        updateSalesEntity.setSocialSales(salesSaveService.socialTotal(salesSaveDataDTO));
         salesRepository.save(updateSalesEntity);
 
-        // 날짜가 다른 경우
+        //날짜가 다른 경우 월 변경 처리
         if (!originalMonth.equals(newMonth)) {
             handleMonthChange(originalMonth, newMonth, salesEntity, updateSalesEntity);
+        } else {
+            //같은 달인 경우 매출 데이터만 업데이트 및 수수료 재계산
+            SalesMonthEntity salesMonthEntity = salesMonthRepository.findByMonth(originalMonth.toString());
+            if (salesMonthEntity != null) {
+                subtractSalesFromMonth(salesMonthEntity, salesEntity);
+                addSalesToMonth(salesMonthEntity, updateSalesEntity);
+                salesSaveService.updateMonthlySummary(Timestamp.valueOf(originalMonth.atDay(1).atStartOfDay())); // 월 데이터 업데이트
+                salesMonthRepository.save(salesMonthEntity);
+            }
         }
 
         return true;
@@ -58,30 +66,34 @@ public class SalesUpdateService {
         String originalYearMonthStr = originalMonth.toString();
         String newYearMonthStr = newMonth.toString();
 
-        // 기존 Month 데이터에서 제거
+        //기존 Month 데이터에서 제거
         SalesMonthEntity originalMonthEntity = salesMonthRepository.findByMonth(originalYearMonthStr);
         if (originalMonthEntity != null) {
             subtractSalesFromMonth(originalMonthEntity, originalSalesEntity);
 
-            // 기존 Month가 비어 있으면 삭제
+            //기존 Month가 비어 있으면 삭제
             if (isMonthDataEmpty(originalMonthEntity)) {
                 salesMonthRepository.delete(originalMonthEntity);
             } else {
                 salesMonthRepository.save(originalMonthEntity);
+                salesSaveService.updateMonthlySummary(Timestamp.valueOf(originalMonth.atDay(1).atStartOfDay()));
+
             }
         }
 
-        // 새로운 Month 데이터 추가
+        //새로운 Month 데이터 추가
         SalesMonthEntity newMonthEntity = salesMonthRepository.findByMonth(newYearMonthStr);
         if (newMonthEntity == null) {
-            // 새로운 월 데이터 생성 및 초기화
+            //새로운 월 데이터 생성 및 초기화
             newMonthEntity = new SalesMonthEntity();
             newMonthEntity.setMonth(newYearMonthStr);
-            initializeMonthData(newMonthEntity); // 초기화 처리
+            initializeMonthData(newMonthEntity);
         }
 
         addSalesToMonth(newMonthEntity, updatedSalesEntity);
-        salesMonthRepository.save(newMonthEntity); // 새로운 데이터 저장
+        salesMonthRepository.save(newMonthEntity);
+        //새로운 월의 데이터 반영
+        salesSaveService.updateMonthlySummary(Timestamp.valueOf(newMonth.atDay(1).atStartOfDay()));
     }
 
     private void initializeMonthData(SalesMonthEntity monthEntity) {
@@ -94,8 +106,8 @@ public class SalesUpdateService {
         monthEntity.setNaverMonth(0L);
         monthEntity.setTanyoMonth(0L);
         monthEntity.setTotalMonth(0L);
-        monthEntity.setSalesMonthPure(null); // 수수료 데이터 초기화
-        monthEntity.setFees(null); // 관련 수수료 초기화
+        monthEntity.setSalesMonthPure(null);
+        monthEntity.setFees(null);
     }
 
     private void subtractSalesFromMonth(SalesMonthEntity salesMonth, SalesEntity salesEntity) {

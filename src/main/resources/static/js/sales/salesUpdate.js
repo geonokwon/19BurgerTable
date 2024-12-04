@@ -12,6 +12,7 @@ $(document).ready(function () {
   $('#datepickerContainer')
     .datepicker({
       format: 'yyyy-mm-dd', // 날짜 형식 설정
+      endDate: '0d', // 선택 가능한 최대 날짜를 오늘로 설정
       //다음달 이전달로 넘어가는 화살표 모양 커스텀 마이징
       showWeekDays: true, // 위에 요일 보여주는 옵션 기본값 : true
       title: '작성날짜', //캘린더 상단에 보여주는 타이틀
