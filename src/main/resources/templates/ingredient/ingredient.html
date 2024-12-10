@@ -47,10 +47,13 @@
             카테고리
           </button>
           <ul class="dropdown-menu" aria-labelledby="filterDropdown">
-            <li><a class="dropdown-item" href="#">오늘</a></li>
+            <li><a class="dropdown-item" th:href="@{/ingredient/list(category=)}">전체</a></li>
+            <th:block th:each="category : ${categoryList}">
+              <li><a class="dropdown-item" th:href="@{/ingredient/list(category=${category})}" th:text="${category}"></a></li>
+            </th:block>
           </ul>
         </div>
-        <a class="btn btn-primary col-auto" th:href="@{/ingredient/add}">재료 추가</a>
+        <a class="btn btn-primary col-auto" data-bs-toggle="modal" data-bs-target="#ingredientAdd-Modal">재료 추가</a>
       </div>
     </div>
 
@@ -66,17 +69,71 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>양상추</td>
-              <td>g</td>
-              <td>채소</td>
-              <td>2024-12-08</td>
+          <th:block th:each="ingredient : ${ingredientList}">
+            <tr onclick="" data-bs-toggle="modal" data-bs-target="#ingredientAdd-Modal">
+              <td th:text ="${ingredient.name}"></td>
+              <td th:text="${ingredient.unit}"></td>
+              <td th:text="${ingredient.category}"></td>
+              <td th:text="${#dates.format(ingredient.createDate, 'yyyy-MM-dd')}"></td>
             </tr>
+          </th:block>
           </tbody>
         </table>
-      </div>
 
-      <!-- 페이지네이션 -->
+        <!-- 재료추가 모달 -->
+        <div id="ingredientAdd-Modal" class="modal" tabindex="-1" role="dialog">
+          <div class="modal-dialog modal-lg"  role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">메뉴 추가</h5>
+              </div>
+              <div class="modal-body">
+                <div id="modal-content">
+                  <div class="container">
+                    <div class="container row">
+                      <div id="sales-input" class="row modalSalesData">
+
+                        <!-- 재료이름 -->
+                        <div class="col-12 col-lg-6">
+                          <label class="my-2" for="ingredientName">재료 이름</label>
+                          <div class="input-group mb-3">
+                            <span class="input-group-text">-</span>
+                            <input type="text" id="ingredientName" name="ingredientName" class="form-control text-end">
+                          </div>
+                        </div>
+
+                        <!-- 단위 -->
+                        <div class="col-12 col-lg-6">
+                          <label class="my-2" for="ingredientUnit">단위</label>
+                          <div class="input-group mb-3">
+                            <span class="input-group-text">-</span>
+                            <input type="text" id="ingredientUnit" name="ingredientUnit" class="form-control text-end">
+                          </div>
+                        </div>
+
+                        <!-- 재료 카테고리 -->
+                        <div class="col-12 col-lg-6">
+                          <label class="my-2" for="ingredientCategory">카테고리</label>
+                          <div class="input-group mb-3">
+                            <span class="input-group-text">-</span>
+                            <input type="text" id="ingredientCategory" name="ingredientCategory" class="form-control text-end">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <div sec:authorize="isAuthenticated()">
+                  <button type="button" class="btn btn-primary" onclick="addIngredient()">추가</button>
+                </div>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>
@@ -102,6 +159,8 @@
 
 <!-- Template Main JS File -->
 <script th:src="@{/js/main.js}"></script>
+
+<script th:src="@{/js/ingredient/ingredientAdd.js}"></script>
 
 
 </body>
