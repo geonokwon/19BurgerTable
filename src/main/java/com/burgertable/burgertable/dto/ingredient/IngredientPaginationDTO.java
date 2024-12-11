@@ -1,20 +1,19 @@
-package com.burgertable.burgertable.dto.sales;
+package com.burgertable.burgertable.dto.ingredient;
+
 
 import com.burgertable.burgertable.dto.utils.PaginationDTO;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 import java.util.Map;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class SalesLogPageDTO implements PaginationDTO<SalesLogDataDTO> {
-    private List<SalesLogDataDTO> items;
+@NoArgsConstructor
+public class IngredientPaginationDTO implements PaginationDTO<IngredientDTO> {
+    private List<IngredientDTO> items;
+    //페이지네이션 관련
     private int totalPages;
     private int currentPage;
     private boolean hasNext;

@@ -32,16 +32,7 @@ public class SalesLogService {
         Pageable pageable = PageRequest.of(page, pageSize);
         //생성일자 내림차순으로 정렬 후 페이징
         Page<SalesEntity> salesEntityPage = salesRepository.findAllByIsDeletedFalseOrderBySalesDateDesc(pageable);
-        //포맷팅으로 Log 페이지에서 필요한 값들만 가지는 DTO로 변환하고 자리수 ',' 포맷 적용
-        List<SalesLogDataDTO> salesLogDataDTOList = SalesLogMapper.INSTANCE.toSalesLogDataDTOList(salesEntityPage.getContent());
-        return new SalesLogPageDTO(
-                salesLogDataDTOList,
-                salesEntityPage.getTotalPages(),
-                salesEntityPage.getNumber(),
-                salesEntityPage.hasNext(),
-                salesEntityPage.hasPrevious()
-        );
-
+        return SalesLogMapper.INSTANCE.toSalesLogPageDTO(salesEntityPage);
     }
 
     //매출 클릭시 모달형태의 상세보기 값 을 넘겨받기 위한 서비스

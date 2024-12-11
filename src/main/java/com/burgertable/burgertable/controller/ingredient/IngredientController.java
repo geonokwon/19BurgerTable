@@ -1,6 +1,8 @@
 package com.burgertable.burgertable.controller.ingredient;
 
+import com.burgertable.burgertable.dto.ingredient.IngredientPaginationDTO;
 import com.burgertable.burgertable.service.ingredient.IngredientGetService;
+import com.burgertable.burgertable.utils.PaginationUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -15,15 +17,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/ingredient")
 public class IngredientController {
     private final IngredientGetService ingredientGetService;
+    protected final int PAGE_SIZE = 20;
+    protected final int PAGE_BLOCK_SIZE = 10;
+
 
     @GetMapping("/list")
     public String list(@RequestParam(defaultValue = "0") int page,
                        @RequestParam(required = false) String category,
                        Model model) {
-        //전체 리스트
-        model.addAttribute("ingredientList", ingredientGetService.getList(category));
+
+        IngredientPaginationDTO ingredientPaginationDTO = ingredientGetService.getList(category, page, PAGE_SIZE);
+        PaginationUtil.addPaginationData(ingredientPaginationDTO, PAGE_BLOCK_SIZE);
+
+        //필터 값 유지를 위한 model
+        model.addAttribute("category", category);
+        //전체 리스트 + PaginationData
+        model.addAttribute("ingredient", ingredientPaginationDTO);
         //카테고리 리스트
         model.addAttribute("categoryList", ingredientGetService.getCategoryList());
+
         return "ingredient/ingredient";
     }
 

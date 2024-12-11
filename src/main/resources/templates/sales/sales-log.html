@@ -432,7 +432,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <th:block th:each="sale : ${salesLogList}">
+                            <th:block th:each="sale : ${salesLog.items}">
                                 <tr th:attr="data-pk=${sale.salesId}" onclick="getSalesLog(this)" data-bs-toggle="modal" data-bs-target="#salesModal">
                                     <th scope="row">1</th>
                                     <td th:text="${sale.user != null ? sale.user.name : '사용자 없음'}">NAME</td>
@@ -448,26 +448,49 @@
                     </div>
 
                     <!-- 페이지네이션 -->
-                    <div class="d-flex justify-content-center" th:if="${salesLogPageDTO.totalPages > 0}">
-                        <ul class="pagination mb-0">
+                    <div class="d-flex justify-content-center" th:if="${salesLog.totalPages > 0}">
+                        <ul class="pagination pagination-success mb-0">
                             <!-- 이전 10개 묶음으로 이동 -->
-                            <li class="page-item" th:if="${salesLogPageDTO.currentPage >= 10}">
-                                <a class="page-link" th:href="@{/sales/salesLog(page=${T(java.lang.Math).max(0, (salesLogPageDTO.currentPage / 10 - 1) * 10)}, yearMonth=${selectedYearMonth})}">&lt;</a>
+                            <li class="page-item" th:if="${salesLog.pagination.hasPreviousGroup}">
+                                <a class="page-link" th:href="@{/sales/salesLog(page=${salesLog.pagination.startPage - 2}, yearMonth=${selectedYearMonth})}">&lt;</a>
                             </li>
 
                             <!-- 현재 페이지 집합 (10개씩 고정) -->
                             <li class="page-item"
-                                th:each="i : ${#numbers.sequence((salesLogPageDTO.currentPage / 10) * 10, T(java.lang.Math).min((salesLogPageDTO.currentPage / 10 + 1) * 10 - 1, salesLogPageDTO.totalPages - 1))}"
-                                th:classappend="${i == salesLogPageDTO.currentPage} ? 'active'">
-                                <a class="page-link" th:href="@{/sales/salesLog(page=${i}, yearMonth=${selectedYearMonth})}" th:text="${i + 1}">1</a>
+                                th:each="i : ${#numbers.sequence(salesLog.pagination.startPage, salesLog.pagination.endPage)}"
+                                th:classappend="${i == salesLog.currentPage + 1} ? 'active'">
+                                <a class="page-link" th:href="@{/sales/salesLog(page=${i - 1}, yearMonth=${selectedYearMonth})}" th:text="${i}"></a>
                             </li>
 
                             <!-- 다음 10개 묶음으로 이동 -->
-                            <li class="page-item" th:if="${(salesLogPageDTO.currentPage / 10 + 1) * 10 < salesLogPageDTO.totalPages}">
-                                <a class="page-link" th:href="@{/sales/salesLog(page=${(salesLogPageDTO.currentPage / 10 + 1) * 10}, yearMonth=${selectedYearMonth})}">&gt;</a>
+                            <li class="page-item" th:if="${salesLog.pagination.hasNextGroup}">
+                                <a class="page-link" th:href="@{/sales/salesLog(page=${salesLog.pagination.endPage}, yearMonth=${selectedYearMonth})}">&gt;</a>
                             </li>
                         </ul>
                     </div>
+                    <!-- 페이지네이션 끝 -->
+
+                    <!-- 페이지네이션 -->
+<!--                    <div class="d-flex justify-content-center" th:if="${salesLogPageDTO.totalPages > 0}">-->
+<!--                        <ul class="pagination mb-0">-->
+<!--                            &lt;!&ndash; 이전 10개 묶음으로 이동 &ndash;&gt;-->
+<!--                            <li class="page-item" th:if="${salesLogPageDTO.currentPage >= 10}">-->
+<!--                                <a class="page-link" th:href="@{/sales/salesLog(page=${T(java.lang.Math).max(0, (salesLogPageDTO.currentPage / 10 - 1) * 10)}, yearMonth=${selectedYearMonth})}">&lt;</a>-->
+<!--                            </li>-->
+
+<!--                            &lt;!&ndash; 현재 페이지 집합 (10개씩 고정) &ndash;&gt;-->
+<!--                            <li class="page-item"-->
+<!--                                th:each="i : ${#numbers.sequence((salesLogPageDTO.currentPage / 10) * 10, T(java.lang.Math).min((salesLogPageDTO.currentPage / 10 + 1) * 10 - 1, salesLogPageDTO.totalPages - 1))}"-->
+<!--                                th:classappend="${i == salesLogPageDTO.currentPage} ? 'active'">-->
+<!--                                <a class="page-link" th:href="@{/sales/salesLog(page=${i}, yearMonth=${selectedYearMonth})}" th:text="${i + 1}">1</a>-->
+<!--                            </li>-->
+
+<!--                            &lt;!&ndash; 다음 10개 묶음으로 이동 &ndash;&gt;-->
+<!--                            <li class="page-item" th:if="${(salesLogPageDTO.currentPage / 10 + 1) * 10 < salesLogPageDTO.totalPages}">-->
+<!--                                <a class="page-link" th:href="@{/sales/salesLog(page=${(salesLogPageDTO.currentPage / 10 + 1) * 10}, yearMonth=${selectedYearMonth})}">&gt;</a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
 
                 </div>
             </div>

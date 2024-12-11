@@ -69,7 +69,7 @@
             </tr>
           </thead>
           <tbody>
-          <th:block th:each="ingredient : ${ingredientList}">
+          <th:block th:each="ingredient : ${ingredient.items}">
             <tr onclick="" data-bs-toggle="modal" data-bs-target="#ingredientAdd-Modal">
               <td th:text ="${ingredient.name}"></td>
               <td th:text="${ingredient.unit}"></td>
@@ -134,6 +134,29 @@
           </div>
         </div>
       </div>
+
+      <!-- 페이지네이션 -->
+      <div class="d-flex justify-content-center" th:if="${ingredient.totalPages > 0}">
+        <ul class="pagination pagination-success mb-0">
+          <!-- 이전 10개 묶음으로 이동 -->
+          <li class="page-item" th:if="${ingredient.pagination.hasPreviousGroup}">
+            <a class="page-link" th:href="@{/ingredient/list(page=${ingredient.pagination.startPage - 2}, category=${category})}">&lt;</a>
+          </li>
+
+          <!-- 현재 페이지 집합 (10개씩 고정) -->
+          <li class="page-item"
+              th:each="i : ${#numbers.sequence(ingredient.pagination.startPage, ingredient.pagination.endPage)}"
+              th:classappend="${i == ingredient.currentPage + 1} ? 'active'">
+            <a class="page-link" th:href="@{/ingredient/list(page=${i - 1}, category=${category})}" th:text="${i}"></a>
+          </li>
+
+          <!-- 다음 10개 묶음으로 이동 -->
+          <li class="page-item" th:if="${ingredient.pagination.hasNextGroup}">
+            <a class="page-link" th:href="@{/ingredient/list(page=${ingredient.pagination.endPage}, category=${category})}">&gt;</a>
+          </li>
+        </ul>
+      </div>
+      <!-- 페이지네이션 끝 -->
 
     </div>
   </div>

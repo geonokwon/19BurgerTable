@@ -6,8 +6,10 @@ import com.burgertable.burgertable.dto.sales.SalesMonthDataDTO;
 import com.burgertable.burgertable.service.sales.SalesLogService;
 import com.burgertable.burgertable.service.sales.SalesMonthService;
 import com.burgertable.burgertable.service.sales.SalesSaveService;
+import com.burgertable.burgertable.utils.PaginationUtil;
 import com.burgertable.burgertable.utils.SecurityUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +29,8 @@ public class SalesController {
     private final SalesLogService salesLogService;
     private final SalesMonthService salesMonthService;
 
-    private final int PAGE_SIZE = 20;
+    protected final int PAGE_SIZE = 20;
+    protected final int PAGE_BLOCK_SIZE = 10;
     private final SalesSaveService salesSaveService;
 
     //리스트 페이지
@@ -65,9 +68,9 @@ public class SalesController {
 
         //페이징처리 및 데이터 불러오기
         SalesLogPageDTO salesLogPageDTO = salesLogService.getSalesPaged(page, PAGE_SIZE);
+        PaginationUtil.addPaginationData(salesLogPageDTO, PAGE_BLOCK_SIZE);
 
-        model.addAttribute("salesLogList", salesLogPageDTO.getSalesLogData());
-        model.addAttribute("salesLogPageDTO", salesLogPageDTO);
+        model.addAttribute("salesLog", salesLogPageDTO);
         return "sales/sales-log";
     }
 
