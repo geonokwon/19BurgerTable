@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class IngredientDTO {
 
+    private Long id;
     private String name;
     private String unit;
     private String category;

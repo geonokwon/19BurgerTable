@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface IngredientRepository extends JpaRepository<IngredientEntity, Long> {
     //Pagination
-    @Query("SELECT i FROM IngredientEntity i  WHERE :category IS NULL OR :category = '' OR i.category = :category")
+    @Query("SELECT i FROM IngredientEntity i  WHERE :category IS NULL OR :category = '' OR i.category = :category ORDER BY i.category ASC ")
     Page<IngredientEntity> findAllByCategory(@Param("category") String category, Pageable pageable);
 
 

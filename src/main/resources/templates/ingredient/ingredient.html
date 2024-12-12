@@ -53,7 +53,7 @@
             </th:block>
           </ul>
         </div>
-        <a class="btn btn-primary col-auto" data-bs-toggle="modal" data-bs-target="#ingredientAdd-Modal">재료 추가</a>
+        <a class="btn btn-primary col-auto" data-bs-toggle="modal" data-bs-target="#ingredient-Modal">재료 추가</a>
       </div>
     </div>
 
@@ -70,7 +70,7 @@
           </thead>
           <tbody>
           <th:block th:each="ingredient : ${ingredient.items}">
-            <tr onclick="" data-bs-toggle="modal" data-bs-target="#ingredientAdd-Modal">
+            <tr th:attr="data-id=${ingredient.id}" onclick="ingredientGet(this)" data-bs-toggle="modal" data-bs-target="#ingredient-Modal">
               <td th:text ="${ingredient.name}"></td>
               <td th:text="${ingredient.unit}"></td>
               <td th:text="${ingredient.category}"></td>
@@ -81,17 +81,17 @@
         </table>
 
         <!-- 재료추가 모달 -->
-        <div id="ingredientAdd-Modal" class="modal" tabindex="-1" role="dialog">
+        <div id="ingredient-Modal" class="modal" tabindex="-1" role="dialog">
           <div class="modal-dialog modal-lg"  role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title">메뉴 추가</h5>
+                <h5 class="modal-title">재료 추가</h5>
               </div>
               <div class="modal-body">
                 <div id="modal-content">
                   <div class="container">
                     <div class="container row">
-                      <div id="sales-input" class="row modalSalesData">
+                      <div id="ingredient-input" class="row modalSalesData">
 
                         <!-- 재료이름 -->
                         <div class="col-12 col-lg-6">
@@ -126,7 +126,9 @@
               </div>
               <div class="modal-footer">
                 <div sec:authorize="isAuthenticated()">
-                  <button type="button" class="btn btn-primary" onclick="addIngredient()">추가</button>
+                  <button id="createIngredient" type="button" class="btn btn-primary" onclick="addIngredient()">추가</button>
+                  <button id="deleteIngredient" type="button" class="btn btn-danger d-none" onclick="deleteIngredient()">삭제</button>
+                  <button id="updateIngredient" type="button" class="btn btn-primary d-none" onclick="updateIngredient()">수정</button>
                 </div>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
               </div>
@@ -184,6 +186,8 @@
 <script th:src="@{/js/main.js}"></script>
 
 <script th:src="@{/js/ingredient/ingredientAdd.js}"></script>
+<script th:src="@{/js/ingredient/ingredientGet.js}"></script>
+<script th:src="@{/js/ingredient/ingredientUpdate.js}"></script>
 
 
 </body>

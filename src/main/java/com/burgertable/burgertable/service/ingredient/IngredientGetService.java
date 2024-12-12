@@ -32,4 +32,8 @@ public class IngredientGetService {
         return Optional.ofNullable(ingredientRepository.findDistinctCategories())
                 .orElse(Collections.emptyList());
     }
+
+    public IngredientDTO getIngredient(Long id) {
+        return IngredientMapper.INSTANCE.toIngredientDTO(ingredientRepository.findById(id).orElse(null));
+    }
 }

@@ -1,4 +1,5 @@
 function addIngredient() {
+
   $.ajax({
     type: "POST",
     url: "/ingredient/add",
