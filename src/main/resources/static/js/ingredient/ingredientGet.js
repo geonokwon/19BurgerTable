@@ -32,6 +32,10 @@ function ingredientGet(data){
     $("#deleteIngredient").addClass("d-none").hide();
     $("#updateIngredient").addClass("d-none").hide();
     $(".modal-title").text("재료 추가");
+
+    $("#ingredientName").val("");
+    $("#ingredientUnit").val("");
+    $("#ingredientCategory").val("");
   })
 
 

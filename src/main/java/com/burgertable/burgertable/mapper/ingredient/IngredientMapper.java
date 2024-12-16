@@ -14,10 +14,10 @@ import org.springframework.data.domain.Page;
 public interface IngredientMapper {
     IngredientMapper INSTANCE = Mappers.getMapper(IngredientMapper.class);
 
-    //IngredientAddDTO -> IngredientEntity 매핑
+    //IngredientDTO -> IngredientEntity 매핑
     IngredientEntity toIngredientEntity(IngredientDTO ingredientDTO);
 
-    //IngredientEntity -> IngredientAddDTO 매핑
+    //IngredientEntity -> IngredientDTO 매핑
     IngredientDTO toIngredientDTO(IngredientEntity ingredientEntity);
 
     //IngredientDTO -> IngredientEntity 업데이트 매핑

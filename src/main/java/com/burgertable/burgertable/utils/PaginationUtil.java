@@ -8,13 +8,16 @@ import java.util.Map;
 
 public class PaginationUtil {
 
-    public static <T extends PaginationDTO<?>> T addPaginationData(T dto, int pageBlockSize) {
+    public static <T extends PaginationDTO<?>> T addPaginationData(T dto) {
+
+        int PAGE_BLOCK_SIZE = 10;
+
         int currentPage = dto.getCurrentPage();
         int totalPages = dto.getTotalPages();
 
         // 페이지네이션 계산
-        int startPage = (currentPage / pageBlockSize) * pageBlockSize + 1;
-        int endPage = Math.min(startPage + pageBlockSize - 1, totalPages);
+        int startPage = (currentPage / PAGE_BLOCK_SIZE) * PAGE_BLOCK_SIZE + 1;
+        int endPage = Math.min(startPage + PAGE_BLOCK_SIZE - 1, totalPages);
 
         boolean hasPreviousGroup = startPage > 1;
         boolean hasNextGroup = endPage < totalPages;

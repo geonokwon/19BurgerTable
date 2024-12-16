@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class IngredientController {
     private final IngredientGetService ingredientGetService;
     protected final int PAGE_SIZE = 20;
-    protected final int PAGE_BLOCK_SIZE = 10;
 
 
     @GetMapping("/list")
@@ -27,7 +26,7 @@ public class IngredientController {
                        Model model) {
 
         IngredientPaginationDTO ingredientPaginationDTO = ingredientGetService.getList(category, page, PAGE_SIZE);
-        PaginationUtil.addPaginationData(ingredientPaginationDTO, PAGE_BLOCK_SIZE);
+        PaginationUtil.addPaginationData(ingredientPaginationDTO);
 
         //필터 값 유지를 위한 model
         model.addAttribute("category", category);

@@ -55,7 +55,7 @@ public class SecurityConfig {
                 .loginProcessingUrl("/login/loginCheck") //로그인 체크 시 시큐리티가 자동으로 사용자 인증을 처리하는 경로
                 .usernameParameter("userId") //userName 으로 인식하기 때문에 id 의 파라미터 값을 userId 로 변경
                 .passwordParameter("userPassword") //password 으로 인식하기 때문에 password 의 파라미터 값을 userPassword 로 변경
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/", true)
                 .permitAll()
         );
 

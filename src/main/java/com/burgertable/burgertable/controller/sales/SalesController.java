@@ -30,7 +30,6 @@ public class SalesController {
     private final SalesMonthService salesMonthService;
 
     protected final int PAGE_SIZE = 20;
-    protected final int PAGE_BLOCK_SIZE = 10;
     private final SalesSaveService salesSaveService;
 
     //리스트 페이지
@@ -68,7 +67,7 @@ public class SalesController {
 
         //페이징처리 및 데이터 불러오기
         SalesLogPageDTO salesLogPageDTO = salesLogService.getSalesPaged(page, PAGE_SIZE);
-        PaginationUtil.addPaginationData(salesLogPageDTO, PAGE_BLOCK_SIZE);
+        PaginationUtil.addPaginationData(salesLogPageDTO);
 
         model.addAttribute("salesLog", salesLogPageDTO);
         return "sales/sales-log";

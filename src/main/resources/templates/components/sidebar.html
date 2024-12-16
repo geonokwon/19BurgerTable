@@ -41,6 +41,12 @@
             </a>
             <ul id="ingredient-inventory-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>
+                    <a th:href="@{/inventory/list}">
+                        <i class="bi bi-circle"></i>
+                        <span>재고 현황</span>
+                    </a>
+                </li>
+                <li>
                     <a th:href="@{/ingredient/list}">
                         <i class="bi bi-circle"></i>
                         <span>재료 목록</span>
@@ -49,7 +55,7 @@
                 <li>
                     <a th:href="@{/}">
                         <i class="bi bi-circle"></i>
-                        <span>재고 관리</span>
+                        <span>재료 구매 및 관리</span>
                     </a>
                 </li>
             </ul>
