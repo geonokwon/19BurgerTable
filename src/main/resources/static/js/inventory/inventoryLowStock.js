@@ -7,12 +7,10 @@ $("#lowStock").on("input", function() {
 
 
 function setInventoryId(id) {
-  inventoryId = parseInt(id.data('id'));
-  console.log(inventoryId);
+  inventoryId = parseInt($(id).data('id'));
 }
 
 function setInventoryLowStock(){
-  console.log($("#lowStock").val());
 
   $.ajax({
     type: "POST",
@@ -24,11 +22,17 @@ function setInventoryLowStock(){
     }),
     success: (res) => {
       alert("임계값 설정 완료")
+      location.href="/inventory/list"
     },
     error: (err) => {
       alert("임계값 설정 오류")
     }
   })
 }
+
+$('#inventory-Modal').on('hidden.bs.modal', function () {
+  //input 필드 초기화
+  $("#lowStock").val('');
+});
 
 
