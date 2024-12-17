@@ -1,6 +1,7 @@
 package com.burgertable.burgertable.dto.inventory;
 
 import com.burgertable.burgertable.entity.IngredientEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,5 +20,8 @@ public class InventoryDTO {
     private IngredientEntity ingredient;
     private BigDecimal totalQuantity;
     private LocalDateTime updateDate;
+    private BigDecimal lowStock;
+    @JsonIgnore
+    private boolean isLowStock;
 
 }

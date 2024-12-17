@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface InventoryRepository extends JpaRepository<InventoryEntity, Long> {
@@ -15,4 +16,7 @@ public interface InventoryRepository extends JpaRepository<InventoryEntity, Long
             "WHERE (:category IS NULL OR :category = '' OR iv.ingredient.category = :category)")
     Page<InventoryEntity> findByIngredientCategory(@Param("category") String category, Pageable pageable);
     Optional<InventoryEntity> findByIngredientId(Long ingredientId);
+
+    @Query("SELECT DISTINCT i.ingredient.category FROM InventoryEntity i WHERE i.ingredient.category IS NOT NULL ORDER BY i.ingredient.category ASC ")
+    List<String> findByIngredientCategories();
 }

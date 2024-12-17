@@ -11,6 +11,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -21,5 +25,10 @@ public class InventoryGetService {
         Pageable pageable = PageRequest.of(page, PAGE_SIZE);
         Page<InventoryEntity> inventoryEntityPage = inventoryRepository.findByIngredientCategory(category, pageable);
         return InventoryMapper.INSTANCE.toInventoryPaginationDTO(inventoryEntityPage);
+    }
+
+    public List<String> getCategoryList() {
+        return Optional.ofNullable(inventoryRepository.findByIngredientCategories())
+                .orElse(Collections.emptyList());
     }
 }

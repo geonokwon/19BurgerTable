@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 public class InventoryController {
     protected final int PAGE_SIZE = 30;
-    protected final int PAGE_BLOCK_SIZE = 10;
 
     private final InventoryGetService inventoryGetService;
 
@@ -25,15 +24,20 @@ public class InventoryController {
     public String list(@RequestParam(defaultValue = "0") int page,
                        @RequestParam(required = false) String category ,
                        Model model){
+
+        model.addAttribute("category", category);
+
         InventoryPaginationDTO inventoryPaginationDTO = inventoryGetService.getAll(page, PAGE_SIZE, category);
         PaginationUtil.addPaginationData(inventoryPaginationDTO);
-
         model.addAttribute("inventory", inventoryPaginationDTO);
 
+        //카테고리 리스트
+        model.addAttribute("categoryList", inventoryGetService.getCategoryList());
 
 
 
-        return "ingredient/inventory";
+
+        return "inventory/inventory";
     }
 
 
