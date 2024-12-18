@@ -3,6 +3,7 @@ let inventoryId = null;
 $("#lowStock").on("input", function() {
   //현재 input 필드의 값에서 숫자 외의 문자는 제거
   $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+  $(this).val($(this).val().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
 })
 
 
@@ -18,7 +19,7 @@ function setInventoryLowStock(){
     contentType: "application/json",
     data: JSON.stringify({
       id: inventoryId,
-      lowStock : $("#lowStock").val().trim()
+      lowStock : $("#lowStock").val().trim().replace(/,/g, ''),
     }),
     success: (res) => {
       alert("임계값 설정 완료")

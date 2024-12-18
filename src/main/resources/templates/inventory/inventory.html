@@ -63,13 +63,24 @@
         <th:block th:each="inventory : ${inventory.items}">
           <div class="col-12 col-md-6 col-lg-4 mb-3">
             <div class="card">
+              <div th:if="${inventory.lowStockStatus}">
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  재고부족
+                </span>
+              </div>
               <div class="card-body">
                 <div class="row my-1 align-items-center">
                   <div class="col-8 d-flex align-items-center">
                     <h4 id="inventory-title" class="card-title fw-bold my-0" th:text="${inventory.ingredient.name}" style="padding: 20px 0px 20px 0px">양배추</h4>
                   </div>
                   <div class="col-4 text-end align-items-center">
-                    <button id="inventoryId" th:attr="data-id=${inventory.id}" class="btn btn-secondary btn-sm" onclick="setInventoryId(this)" data-bs-toggle="modal" data-bs-target="#inventory-Modal">임계값</button>
+                    <button id="inventoryId" th:attr="data-id=${inventory.id}"
+                            class="btn btn-secondary btn-sm"
+                            onclick="setInventoryId(this)"
+                            data-bs-toggle="modal"
+                            data-bs-target="#inventory-Modal">
+                      임계값
+                    </button>
                   </div>
                 </div>
 
@@ -84,8 +95,11 @@
                 <div class="row mb-2">
                   <div class="col-6 fw-bold text-start">재고 :</div>
                   <div class="col-6 text-start" >
-                    <span th:text="${inventory.totalQuantity}"></span>
-                    <span th:text="${inventory.ingredient.unit}">g</span>
+                    <span th:text="${#numbers.formatInteger(inventory.totalQuantity, '0', 'COMMA')}
+                    + ${inventory.ingredient.unit}
+                    + '  / '
+                    + ${#numbers.formatInteger(inventory.lowStock, '0', 'COMMA') ?: '0'}
+                    + ${inventory.ingredient.unit} "></span>
                   </div>
                 </div>
                 <div class="row">

@@ -32,12 +32,12 @@ public class InventoryEntity {
     private BigDecimal lowStock;
 
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
-    private boolean isLowStock = true;
+    private boolean lowStockStatus = true;
 
     //재고 부족 여부 업데이트
     public void updateLowStockStatus() {
         if (totalQuantity != null && lowStock != null) {
-            this.isLowStock = totalQuantity.compareTo(lowStock) <= 0;
+            this.lowStockStatus = totalQuantity.compareTo(lowStock) <= 0;
         }
     }
 

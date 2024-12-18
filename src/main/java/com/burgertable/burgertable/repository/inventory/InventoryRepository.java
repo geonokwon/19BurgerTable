@@ -13,7 +13,8 @@ import java.util.Optional;
 
 public interface InventoryRepository extends JpaRepository<InventoryEntity, Long> {
     @Query("SELECT iv FROM InventoryEntity iv " +
-            "WHERE (:category IS NULL OR :category = '' OR iv.ingredient.category = :category)")
+            "WHERE (:category IS NULL OR :category = '' OR iv.ingredient.category = :category)" +
+            "ORDER BY iv.lowStockStatus DESC, iv.ingredient.category ASC")
     Page<InventoryEntity> findByIngredientCategory(@Param("category") String category, Pageable pageable);
     Optional<InventoryEntity> findByIngredientId(Long ingredientId);
 
