@@ -18,6 +18,8 @@ public interface InventoryRepository extends JpaRepository<InventoryEntity, Long
     Page<InventoryEntity> findByIngredientCategory(@Param("category") String category, Pageable pageable);
     Optional<InventoryEntity> findByIngredientId(Long ingredientId);
 
-    @Query("SELECT DISTINCT i.ingredient.category FROM InventoryEntity i WHERE i.ingredient.category IS NOT NULL ORDER BY i.ingredient.category ASC ")
+    @Query("SELECT DISTINCT i.category " +
+            "FROM IngredientEntity i " +
+            "WHERE i.category IS NOT NULL ORDER BY i.category ASC ")
     List<String> findByIngredientCategories();
 }
