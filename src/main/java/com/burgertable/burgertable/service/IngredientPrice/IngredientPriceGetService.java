@@ -3,6 +3,7 @@ package com.burgertable.burgertable.service.IngredientPrice;
 import com.burgertable.burgertable.dto.ingredientPrice.IngredientPricePaginationDTO;
 import com.burgertable.burgertable.entity.IngredientPriceEntity;
 import com.burgertable.burgertable.mapper.ingredientPrice.IngredientPriceMapper;
+import com.burgertable.burgertable.repository.ingredient.IngredientRepository;
 import com.burgertable.burgertable.repository.ingredientPrice.IngredientPriceRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class IngredientPriceGetService {
 
+    private final IngredientRepository ingredientRepository;
     private final IngredientPriceRepository ingredientPriceRepository;
 
     public IngredientPricePaginationDTO getAll(String category, int page, int PAGE_SIZE) {
@@ -32,5 +34,10 @@ public class IngredientPriceGetService {
         return Optional.ofNullable(ingredientPriceRepository.findByIngredientCategories())
                 .orElse(Collections.emptyList());
 
+    }
+
+    public List<String> getIngredientNames(String category){
+        return Optional.ofNullable(ingredientRepository.findNamesByCategory(category))
+                .orElse(Collections.emptyList());
     }
 }

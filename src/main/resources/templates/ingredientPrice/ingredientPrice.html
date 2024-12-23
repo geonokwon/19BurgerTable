@@ -20,6 +20,10 @@
   <link th:href="@{/css/bootstrap/bootstrap.min.css}" rel="stylesheet" />
   <link th:href="@{/images/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet" />
 
+  <!-- Bootstrap Datepicker CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+  <link th:href="@{/css/sales/datepicker.css}" rel="stylesheet" />
+
   <!-- Template Main CSS File -->
   <link th:href="@{/css/style.css}" rel="stylesheet" />
 </head>
@@ -97,10 +101,10 @@
 
                         <!-- 재료 카테고리 선택 -->
                         <div class="col-12 col-lg-auto">
-                          <label class="my-2" for="ingredient-category">재료 카테고리</label>
+                          <label class="my-2" for="ingredient-category">카테고리</label>
                           <div class="input-group mb-3">
                             <button id="ingredient-category" class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                              재료 카테고리 선택
+                              선택
                             </button>
                             <ul class="dropdown-menu">
                               <li>
@@ -117,13 +121,45 @@
                           <label class="my-2" for="ingredient">재료</label>
                           <div class="input-group mb-3">
                             <button id="ingredient" class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                              재료 선택
+                              선택
                             </button>
-                            <ul class="dropdown-menu">
-                              <li>
-                                <button class="ingredient"></button>
-                              </li>
+                            <ul class="dropdown-menu" id="ingredient-names">
+                              <li><button class="dropdown-item">카테고리 선택</button></li>
                             </ul>
+                          </div>
+                        </div>
+
+                        <!-- 구매수량 선택 -->
+                        <div class="col-12 col-lg-auto">
+                          <label class="my-2" for="total-quantity">구매수량</label>
+                          <div class="input-group input-group-sm mb-3">
+                            <input type="text" id="total-quantity" name="totalQuantity" class="form-control text-end">
+                            <span class="input-group-text">g</span>
+                          </div>
+                        </div>
+
+                        <!-- 구매 일자 선택 -->
+                        <div class="col-12 col-lg-auto">
+                          <label class="my-2" for="price-date">구매 일자</label>
+                          <div class="input-group input-group-sm mb-3">
+                            <input type="text" id="price-date" name="priceDate" class="form-control text-end">
+                          </div>
+                        </div>
+
+                        <!-- 공급업체 -->
+                        <div class="col-12 col-lg-auto">
+                          <label class="my-2" for="supplier">공급 업체</label>
+                          <div class="input-group input-group-sm mb-3">
+                            <input type="text" id="supplier" name="supplier" class="form-control text-end">
+                          </div>
+                        </div>
+
+                        <!-- 구매 가격 -->
+                        <div class="col-12 col-lg-auto">
+                          <label class="my-2" for="total-price">구매 가격</label>
+                          <div class="input-group input-group-sm mb-3">
+                            <input type="text" id="total-price" name="total-price" class="form-control text-end">
+                            <span class="input-group-text">원</span>
                           </div>
                         </div>
 
@@ -188,9 +224,20 @@
 <script th:src="@{/js/apexcharts/apexcharts.min.js}"></script>
 <script th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
 
+
+<!-- Bootstrap Datepicker JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<!-- 한국어 로케일 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"></script>
+
+
 <!-- Template Main JS File -->
 <script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/ingredientPrice/datepicker.js}"></script>
+<script th:src="@{/js/ingredientPrice/moneyFormatting.js}"></script>
 <script th:src="@{/js/ingredientPrice/ingredientPriceGet.js}"></script>
+<script th:src="@{/js/ingredientPrice/ingredientPriceModal.js}"></script>
+
 
 
 </body>

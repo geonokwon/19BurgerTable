@@ -19,4 +19,8 @@ public interface IngredientRepository extends JpaRepository<IngredientEntity, Lo
     //카테고리 중복제거후 List 반환
     @Query("SELECT DISTINCT i.category FROM IngredientEntity i ORDER BY i.category ASC ")
     List<String> findDistinctCategories();
+
+    //재고 구매리스트 추가에 필요한 카테고리별 재료 반환
+    @Query("SELECT i.name FROM IngredientEntity i WHERE i.category = :category ")
+    List<String> findNamesByCategory(@Param("category") String category);
 }
