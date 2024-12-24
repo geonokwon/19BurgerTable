@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IngredientRepository extends JpaRepository<IngredientEntity, Long> {
     //Pagination
@@ -23,4 +24,7 @@ public interface IngredientRepository extends JpaRepository<IngredientEntity, Lo
     //재고 구매리스트 추가에 필요한 카테고리별 재료 반환
     @Query("SELECT i.name FROM IngredientEntity i WHERE i.category = :category ")
     List<String> findNamesByCategory(@Param("category") String category);
+
+    @Query("SELECT i.unit FROM IngredientEntity i WHERE i.name = :ingredientName")
+    String findUnitByName(@Param("ingredientName") String ingredientName);
 }

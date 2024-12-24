@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -24,7 +25,7 @@ public class IngredientPriceEntity {
     private InventoryEntity inventory;
 
     private String supplier;
-    private LocalDateTime priceDate;
+    private LocalDate priceDate;
     private BigDecimal totalQuantity;
     private Long totalPrice;
 

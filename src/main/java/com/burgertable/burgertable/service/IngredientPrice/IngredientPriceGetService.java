@@ -40,4 +40,9 @@ public class IngredientPriceGetService {
         return Optional.ofNullable(ingredientRepository.findNamesByCategory(category))
                 .orElse(Collections.emptyList());
     }
+
+    public String getIngredientUnit(String ingredientName) {
+        return Optional.ofNullable(ingredientRepository.findUnitByName(ingredientName))
+                .orElse("");
+    }
 }

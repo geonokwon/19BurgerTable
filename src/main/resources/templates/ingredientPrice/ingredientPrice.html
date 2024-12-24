@@ -77,7 +77,7 @@
           <th:block th:each="ingredientPrice : ${ingredientPrice.items}">
             <tr th:attr="data-id=${ingredientPrice.id}">
               <td th:text ="${ingredientPrice.inventory.ingredient.name}"></td>
-              <td th:text="${ingredientPrice.totalQuantity} + ${ingredientPrice.inventory.ingredient.unit}"></td>
+              <td th:text="${#numbers.formatInteger(ingredientPrice.totalQuantity, '0', 'COMMA')} + ${ingredientPrice.inventory.ingredient.unit}"></td>
               <td th:text="${#temporals.format(ingredientPrice.priceDate, 'yyyy-MM-dd')}"></td>
               <td th:text="${ingredientPrice.supplier}"></td>
               <td th:text="${#numbers.formatInteger(ingredientPrice.totalPrice, '0', 'COMMA')}"></td>
@@ -97,13 +97,14 @@
                 <div id="modal-content">
                   <div class="container">
                     <div class="container row">
-                      <div id="ingredient-input" class="row modalSalesData">
+
+                      <div id="ingredientPrice-input" class="row modalIngredientPriceData" data-index="1">
 
                         <!-- 재료 카테고리 선택 -->
-                        <div class="col-12 col-lg-auto">
+                        <div class="col-6 col-md-6 col-lg-auto">
                           <label class="my-2" for="ingredient-category">카테고리</label>
                           <div class="input-group mb-3">
-                            <button id="ingredient-category" class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button id="ingredient-category" class="ingredient-category btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                               선택
                             </button>
                             <ul class="dropdown-menu">
@@ -117,51 +118,53 @@
                         </div>
 
                         <!-- 재료 선택 -->
-                        <div class="col-12 col-lg-auto">
+                        <div class="col-6 col-md-6 col-lg-auto">
                           <label class="my-2" for="ingredient">재료</label>
                           <div class="input-group mb-3">
-                            <button id="ingredient" class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button id="ingredient" class="ingredient btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                               선택
                             </button>
-                            <ul class="dropdown-menu" id="ingredient-names">
+                            <ul class="dropdown-menu ingredient-names">
                               <li><button class="dropdown-item">카테고리 선택</button></li>
                             </ul>
                           </div>
                         </div>
 
                         <!-- 구매수량 선택 -->
-                        <div class="col-12 col-lg-auto">
+                        <div class="col-12 col-md-6 col-lg-2">
                           <label class="my-2" for="total-quantity">구매수량</label>
                           <div class="input-group input-group-sm mb-3">
-                            <input type="text" id="total-quantity" name="totalQuantity" class="form-control text-end">
-                            <span class="input-group-text">g</span>
+                            <input type="text" id="total-quantity" name="totalQuantity" class="total-quantity form-control text-end">
+                            <span class="input-group-text ingredient-unit">-</span>
                           </div>
                         </div>
 
                         <!-- 구매 일자 선택 -->
-                        <div class="col-12 col-lg-auto">
+                        <div class="col-12 col-md-6 col-lg-2">
                           <label class="my-2" for="price-date">구매 일자</label>
                           <div class="input-group input-group-sm mb-3">
-                            <input type="text" id="price-date" name="priceDate" class="form-control text-end">
+                            <input type="text" id="price-date" name="priceDate" class="price-date form-control text-end">
                           </div>
                         </div>
 
                         <!-- 공급업체 -->
-                        <div class="col-12 col-lg-auto">
+                        <div class="col-12 col-md-6 col-lg-auto">
                           <label class="my-2" for="supplier">공급 업체</label>
                           <div class="input-group input-group-sm mb-3">
-                            <input type="text" id="supplier" name="supplier" class="form-control text-end">
+                            <input type="text" id="supplier" name="supplier" class="supplier form-control text-end">
                           </div>
                         </div>
 
                         <!-- 구매 가격 -->
-                        <div class="col-12 col-lg-auto">
+                        <div class="col-12 col-md-6 col-lg-auto">
                           <label class="my-2" for="total-price">구매 가격</label>
                           <div class="input-group input-group-sm mb-3">
-                            <input type="text" id="total-price" name="total-price" class="form-control text-end">
+                            <input type="text" id="total-price" name="total-price" class="total-price form-control text-end">
                             <span class="input-group-text">원</span>
                           </div>
                         </div>
+
+                        <hr>
 
                       </div>
                     </div>
@@ -170,7 +173,8 @@
               </div>
               <div class="modal-footer">
                 <div sec:authorize="isAuthenticated()">
-                  <button id="ingredientPrice-save-btn" type="button" class="btn btn-primary" onclick="addIngredient()">저장</button>
+                  <button id="ingredientPrice-add-btn" type="button" class="btn btn-success">행 추가</button>
+                  <button id="ingredientPrice-save-btn" type="button" class="btn btn-primary">저장</button>
                 </div>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
               </div>
@@ -235,8 +239,14 @@
 <script th:src="@{/js/main.js}"></script>
 <script th:src="@{/js/ingredientPrice/datepicker.js}"></script>
 <script th:src="@{/js/ingredientPrice/moneyFormatting.js}"></script>
-<script th:src="@{/js/ingredientPrice/ingredientPriceGet.js}"></script>
+<script th:src="@{/js/ingredientPrice/ingredientPriceGroupAdd.js}"></script>
 <script th:src="@{/js/ingredientPrice/ingredientPriceModal.js}"></script>
+
+<script th:src="@{/js/ingredientPrice/ingredientPriceGet.js}"></script>
+<script th:src="@{/js/ingredientPrice/ingredientPriceAdd.js}"></script>
+
+
+
 
 
 

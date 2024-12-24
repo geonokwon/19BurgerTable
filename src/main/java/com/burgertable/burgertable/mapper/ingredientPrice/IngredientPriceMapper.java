@@ -11,6 +11,9 @@ import org.springframework.data.domain.Page;
 public interface IngredientPriceMapper {
     IngredientPriceMapper INSTANCE = Mappers.getMapper(IngredientPriceMapper.class);
 
+    //IngredientPriceDTO -> IngredientPriceEntity 매핑
+    IngredientPriceEntity toIngredientPriceEntity(IngredientPriceDTO ingredientPriceDTO);
+
     //IngredientPriceEntity -> IngredientPriceDTO 매핑
     IngredientPriceDTO toIngredientPriceDTO(IngredientPriceEntity ingredientPriceEntity);
 

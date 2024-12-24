@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -17,8 +17,9 @@ public class IngredientPriceDTO {
     private Long id;
     private InventoryEntity inventory;
     private String supplier;
-    private LocalDateTime priceDate;
+    private LocalDate priceDate;
     private BigDecimal totalQuantity;
     private Long totalPrice;
+    private String ingredientName;
 
 }

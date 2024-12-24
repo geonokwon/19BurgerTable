@@ -16,10 +16,16 @@ public interface InventoryRepository extends JpaRepository<InventoryEntity, Long
             "WHERE (:category IS NULL OR :category = '' OR iv.ingredient.category = :category)" +
             "ORDER BY iv.lowStockStatus DESC, iv.ingredient.category ASC")
     Page<InventoryEntity> findByIngredientCategory(@Param("category") String category, Pageable pageable);
+
     Optional<InventoryEntity> findByIngredientId(Long ingredientId);
 
     @Query("SELECT DISTINCT i.category " +
             "FROM IngredientEntity i " +
             "WHERE i.category IS NOT NULL ORDER BY i.category ASC ")
     List<String> findByIngredientCategories();
+
+    @Query("SELECT i " +
+            "FROM InventoryEntity i " +
+            "WHERE i.ingredient.name = :ingredientName")
+    Optional<InventoryEntity> findInventoryByIngredientName(@Param("ingredientName") String ingredientName);
 }
