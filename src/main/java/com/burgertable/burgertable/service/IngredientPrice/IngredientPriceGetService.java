@@ -1,5 +1,6 @@
 package com.burgertable.burgertable.service.IngredientPrice;
 
+import com.burgertable.burgertable.dto.ingredientPrice.IngredientPriceDTO;
 import com.burgertable.burgertable.dto.ingredientPrice.IngredientPricePaginationDTO;
 import com.burgertable.burgertable.entity.IngredientPriceEntity;
 import com.burgertable.burgertable.mapper.ingredientPrice.IngredientPriceMapper;
@@ -44,5 +45,11 @@ public class IngredientPriceGetService {
     public String getIngredientUnit(String ingredientName) {
         return Optional.ofNullable(ingredientRepository.findUnitByName(ingredientName))
                 .orElse("");
+    }
+
+    public IngredientPriceDTO get(Long id) {
+        return ingredientPriceRepository.findId(id)
+                .map(IngredientPriceMapper.INSTANCE::toIngredientPriceDTO)
+                .orElse(null);
     }
 }

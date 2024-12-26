@@ -53,5 +53,15 @@ public class IngredientPriceAPIController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("저장 실패");
     }
 
+    @PostMapping("/get")
+    public ResponseEntity<?> get(@RequestBody Long id){
+        log.info("id {}", id);
+        IngredientPriceDTO ingredientPriceDTO = ingredientPriceGetService.get(id);
+        if (ingredientPriceDTO != null){
+            return ResponseEntity.ok().body(ingredientPriceDTO);
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("데이터 가져오기 실패");
+    }
+
 
 }

@@ -59,3 +59,32 @@ function ingredientNameGet(ingredientButton) {
   });
 }
 
+//수정 및 삭제 모달 데이터 가져오기
+function ingredientFieldGet(id) {
+  const $id = parseInt($(id).data("id"));
+  console.log($id);
+
+  $.ajax({
+    type: "POST",
+    url: "/ingredientPrice/get",
+    contentType: "application/json",
+    data: JSON.stringify($id),
+    success: (res) => {
+      console.log(res);
+      $("#ingredientPrice-input").attr("data-id", res.id);
+      $("#ingredient-category").text(res.inventory.ingredient.category);
+      $("#ingredient").text(res.inventory.ingredient.name);
+      $("#total-quantity").val((res.totalQuantity).toLocaleString());
+      $(".ingredient-unit").text(res.inventory.ingredient.unit);
+      $("#price-date").val(res.priceDate);
+      $("#supplier").val(res.supplier);
+      $("#total-price").val((res.totalPrice).toLocaleString());
+    },
+    error: (err) => {
+      console.log(err);
+    }
+  })
+
+
+}
+

@@ -25,7 +25,6 @@ $("#ingredientPrice-save-btn").click(function () {
       supplier: supplier,
       totalPrice: parseInt(totalPrice.replace(/,/g, ""), 10),
     });
-    console.log(parseFloat(quantity.replace(/,/g, "")));
   });
 
   if (isValid) {

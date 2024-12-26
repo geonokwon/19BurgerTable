@@ -75,7 +75,7 @@
           </thead>
           <tbody>
           <th:block th:each="ingredientPrice : ${ingredientPrice.items}">
-            <tr th:attr="data-id=${ingredientPrice.id}">
+            <tr th:attr="data-id=${ingredientPrice.id}" onclick="ingredientFieldGet(this)" data-bs-toggle="modal" data-bs-target="#ingredientPrice-Modal">
               <td th:text ="${ingredientPrice.inventory.ingredient.name}"></td>
               <td th:text="${#numbers.formatInteger(ingredientPrice.totalQuantity, '0', 'COMMA')} + ${ingredientPrice.inventory.ingredient.unit}"></td>
               <td th:text="${#temporals.format(ingredientPrice.priceDate, 'yyyy-MM-dd')}"></td>
@@ -173,6 +173,7 @@
               </div>
               <div class="modal-footer">
                 <div sec:authorize="isAuthenticated()">
+                  <button id="ingredientPrice-update-btn" type="button" class="btn btn-success d-none">수정</button>
                   <button id="ingredientPrice-add-btn" type="button" class="btn btn-success">행 추가</button>
                   <button id="ingredientPrice-save-btn" type="button" class="btn btn-primary">저장</button>
                 </div>
@@ -244,6 +245,7 @@
 
 <script th:src="@{/js/ingredientPrice/ingredientPriceGet.js}"></script>
 <script th:src="@{/js/ingredientPrice/ingredientPriceAdd.js}"></script>
+<script th:src="@{/js/ingredientPrice/ingredientPriceUpdate.js}"></script>
 
 
 
