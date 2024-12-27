@@ -12,5 +12,9 @@ $("#ingredientPrice-Modal").on("hidden.bs.modal", function () {
   $(".price-date").val("");
   $(".total-price").val("");
   $(".ingredient-unit").text("-");
+  $("#ingredientPrice-add-btn").show();
+  $("#ingredientPrice-save-btn").show();
+  $("#ingredientPrice-update-btn").addClass("d-none");
+  $("#ingredientPrice-delete-btn").addClass("d-none");
 
 });

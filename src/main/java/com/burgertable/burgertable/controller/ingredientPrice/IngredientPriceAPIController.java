@@ -3,6 +3,7 @@ package com.burgertable.burgertable.controller.ingredientPrice;
 import com.burgertable.burgertable.dto.ingredientPrice.IngredientPriceDTO;
 import com.burgertable.burgertable.service.IngredientPrice.IngredientPriceAddService;
 import com.burgertable.burgertable.service.IngredientPrice.IngredientPriceGetService;
+import com.burgertable.burgertable.service.IngredientPrice.IngredientPriceUpdateService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ public class IngredientPriceAPIController {
 
     private final IngredientPriceGetService ingredientPriceGetService;
     private final IngredientPriceAddService ingredientPriceAddService;
+    private final IngredientPriceUpdateService ingredientPriceUpdateService;
 
     @PostMapping("/getIngredientNames")
     public ResponseEntity<?> getIngredientNames(@RequestBody String category){
@@ -61,6 +63,16 @@ public class IngredientPriceAPIController {
             return ResponseEntity.ok().body(ingredientPriceDTO);
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("데이터 가져오기 실패");
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<?> update(@RequestBody IngredientPriceDTO ingredientPriceDTO){
+        log.info("ingredientPriceDTO: {}", ingredientPriceDTO);
+        boolean isValid = ingredientPriceUpdateService.update(ingredientPriceDTO);
+        if (isValid){
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("데이터 수정 실패");
     }
 
 

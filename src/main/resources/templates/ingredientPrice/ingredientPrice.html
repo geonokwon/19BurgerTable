@@ -173,7 +173,8 @@
               </div>
               <div class="modal-footer">
                 <div sec:authorize="isAuthenticated()">
-                  <button id="ingredientPrice-update-btn" type="button" class="btn btn-success d-none">수정</button>
+                  <button id="ingredientPrice-update-btn" type="button" class="btn btn-success d-none" onclick="ingredientPriceUpdate()">수정</button>
+                  <button id="ingredientPrice-delete-btn" type="button" class="btn btn-danger d-none" onclick="ingredientPriceDelete()">삭제</button>
                   <button id="ingredientPrice-add-btn" type="button" class="btn btn-success">행 추가</button>
                   <button id="ingredientPrice-save-btn" type="button" class="btn btn-primary">저장</button>
                 </div>
@@ -246,6 +247,7 @@
 <script th:src="@{/js/ingredientPrice/ingredientPriceGet.js}"></script>
 <script th:src="@{/js/ingredientPrice/ingredientPriceAdd.js}"></script>
 <script th:src="@{/js/ingredientPrice/ingredientPriceUpdate.js}"></script>
+<script th:src="@{/js/ingredientPrice/ingredientPriceDelete.js}"></script>
 
 
 

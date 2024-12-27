@@ -79,6 +79,10 @@ function ingredientFieldGet(id) {
       $("#price-date").val(res.priceDate);
       $("#supplier").val(res.supplier);
       $("#total-price").val((res.totalPrice).toLocaleString());
+      $("#ingredientPrice-add-btn").hide();
+      $("#ingredientPrice-save-btn").hide();
+      $("#ingredientPrice-update-btn").removeClass("d-none");
+      $("#ingredientPrice-delete-btn").removeClass("d-none");
     },
     error: (err) => {
       console.log(err);
