@@ -26,6 +26,7 @@ public class IngredientPriceUpdateService {
             ingredientPrice.getInventory().setTotalQuantity(ingredientPrice.getInventory().getTotalQuantity().subtract(ingredientPrice.getTotalQuantity()));
             IngredientPriceMapper.INSTANCE.updateIngredientPriceEntity(ingredientPriceDTO, ingredientPrice);
             ingredientPrice.getInventory().setTotalQuantity(ingredientPrice.getInventory().getTotalQuantity().add(ingredientPrice.getTotalQuantity()));
+            ingredientPrice.getInventory().updateLowStockStatus();
             ingredientPriceRepository.save(ingredientPrice);
             return true;
         }

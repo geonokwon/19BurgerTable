@@ -23,6 +23,7 @@ public class IngredientPriceAddService {
 
     @Transactional
     public boolean add(List<IngredientPriceDTO> ingredientPriceDTOs) {
+        log.info("ingredientPriceDTOs: {}", ingredientPriceDTOs);
         try {
             for (IngredientPriceDTO ingredientDTO : ingredientPriceDTOs) {
                 IngredientPriceEntity ingredientPriceEntity = IngredientPriceMapper.INSTANCE.toIngredientPriceEntity(ingredientDTO);

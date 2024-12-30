@@ -2,13 +2,17 @@ package com.burgertable.burgertable.controller.ingredientPrice;
 
 import com.burgertable.burgertable.dto.ingredientPrice.IngredientPriceDTO;
 import com.burgertable.burgertable.service.IngredientPrice.IngredientPriceAddService;
+import com.burgertable.burgertable.service.IngredientPrice.IngredientPriceDeleteService;
 import com.burgertable.burgertable.service.IngredientPrice.IngredientPriceGetService;
 import com.burgertable.burgertable.service.IngredientPrice.IngredientPriceUpdateService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -21,6 +25,7 @@ public class IngredientPriceAPIController {
     private final IngredientPriceGetService ingredientPriceGetService;
     private final IngredientPriceAddService ingredientPriceAddService;
     private final IngredientPriceUpdateService ingredientPriceUpdateService;
+    private final IngredientPriceDeleteService ingredientPriceDeleteService;
 
     @PostMapping("/getIngredientNames")
     public ResponseEntity<?> getIngredientNames(@RequestBody String category){
@@ -75,5 +80,14 @@ public class IngredientPriceAPIController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("데이터 수정 실패");
     }
 
+    @PostMapping("/delete")
+    public ResponseEntity<?> delete(@RequestBody Long id){
+        log.info("id {}", id);
+        boolean isValid = ingredientPriceDeleteService.delete(id);
+        if (isValid){
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("데이터 삭제 실패");
+    }
 
 }
