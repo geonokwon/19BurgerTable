@@ -1,7 +1,6 @@
 package com.burgertable.burgertable.service.IngredientPrice;
 
 import com.burgertable.burgertable.dto.ingredientPrice.IngredientPriceDTO;
-import com.burgertable.burgertable.entity.IngredientEntity;
 import com.burgertable.burgertable.entity.IngredientPriceEntity;
 import com.burgertable.burgertable.mapper.ingredientPrice.IngredientPriceMapper;
 import com.burgertable.burgertable.repository.ingredientPrice.IngredientPriceRepository;

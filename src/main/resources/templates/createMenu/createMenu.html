@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+  <title>19BURGER TABLE</title>
+  <meta content="" name="description" />
+  <meta content="" name="keywords" />
+
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect" />
+  <link
+          href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet"
+  />
+
+  <!-- Vendor CSS Files -->
+  <link th:href="@{/css/bootstrap/bootstrap.min.css}" rel="stylesheet" />
+  <link th:href="@{/images/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet" />
+
+  <!-- Template Main CSS File -->
+  <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+
+<body>
+<!-- 공통 해더 -->
+<div th:replace="~{components/header :: header}"></div>
+<!-- 공통 사이드 바 -->
+<div th:replace="~{components/sidebar :: sidebar}"></div>
+
+
+
+<!-- ======= Main ======= -->
+<main id="main" class="main">
+  <div class="container">
+    <h3 class="col-11 p-0">메뉴</h3>
+    <div class="container">
+      <div class="row d-flex justify-content-between align-items-center mb-3">
+        <div class="dropdown col-auto">
+          <button class="btn btn-sm btn-secondary dropdown-toggle"
+                  type="button"
+                  id="filterDropdown"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false">
+            카테고리
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="filterDropdown">
+<!--            <li><a class="dropdown-item" th:href="@{/inventory/list(category=)}">전체</a></li>-->
+<!--            <th:block th:each="category : ${categoryList}">-->
+<!--              <li><a class="dropdown-item" th:href="@{/inventory/list(category=${category})}" th:text="${category}"></a></li>-->
+<!--            </th:block>-->
+          </ul>
+        </div>
+        <a class="btn btn-primary col-auto" data-bs-toggle="modal" data-bs-target="#">메뉴 추가</a>
+      </div>
+    </div>
+
+    <!-- 메뉴 리스트 (card) -->
+    <div class="container">
+
+      <div class="row">
+        <div class="col-12 col-md-6 col-lg-4 mb-3">
+          <div class="card">
+          </div>
+        </div>
+
+        <!-- 페이지네이션 -->
+<!--        <div class="d-flex justify-content-center" th:if="${inventory.totalPages > 0}">-->
+<!--          <ul class="pagination pagination-success mb-0">-->
+<!--            &lt;!&ndash; 이전 10개 묶음으로 이동 &ndash;&gt;-->
+<!--            <li class="page-item" th:if="${inventory.pagination.hasPreviousGroup}">-->
+<!--              <a class="page-link" th:href="@{/inventory/list(page=${inventory.pagination.startPage - 2}, category=${category})}">&lt;</a>-->
+<!--            </li>-->
+
+<!--            &lt;!&ndash; 현재 페이지 집합 (10개씩 고정) &ndash;&gt;-->
+<!--            <li class="page-item"-->
+<!--                th:each="i : ${#numbers.sequence(inventory.pagination.startPage, inventory.pagination.endPage)}"-->
+<!--                th:classappend="${i == inventory.currentPage + 1} ? 'active'">-->
+<!--              <a class="page-link" th:href="@{/inventory/list(page=${i - 1}, category=${category})}" th:text="${i}"></a>-->
+<!--            </li>-->
+
+<!--            &lt;!&ndash; 다음 10개 묶음으로 이동 &ndash;&gt;-->
+<!--            <li class="page-item" th:if="${inventory.pagination.hasNextGroup}">-->
+<!--              <a class="page-link" th:href="@{/inventory/list(page=${inventory.pagination.endPage}, category=${category})}">&gt;</a>-->
+<!--            </li>-->
+<!--          </ul>-->
+<!--        </div>-->
+        <!-- 페이지네이션 끝 -->
+
+        <!-- 임계값 설정 모달 -->
+        <div id="inventory-Modal" class="modal" tabindex="-1" role="dialog">
+          <div class="modal-dialog"  role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">임계값 설정</h5>
+              </div>
+              <div class="modal-body">
+                <div id="modal-content">
+                  <div class="container">
+                    <div id="inventory-input" class="row modalSalesData">
+
+                      <!-- 임계값 설정 -->
+                      <div class="col-12">
+                        <label class="my-2" for="lowStock">임계값 설정(숫자만 설정)</label>
+                        <div class="input-group mb-3">
+                          <span class="input-group-text">-</span>
+                          <input type="text" id="lowStock" name="lowStock" class="form-control text-end">
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <div sec:authorize="isAuthenticated()">
+                  <button id="createIngredient" type="button" class="btn btn-primary" onclick="setInventoryLowStock()">저장</button>
+                </div>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+</main>
+<!-- End #main -->
+
+
+<!-- 공통 푸터 -->
+<div th:replace="~{components/footer :: footer}"></div>
+
+<!-- 최상단 이동 버튼 -->
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+  <i class="bi bi-arrow-up-short"></i>
+</a>
+
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<!-- Vendor JS Files -->
+<script th:src="@{/js/apexcharts/apexcharts.min.js}"></script>
+<script th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+
+<!-- Template Main JS File -->
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/inventory/inventoryLowStock.js}"></script>
+
+
+</body>
+</html>
